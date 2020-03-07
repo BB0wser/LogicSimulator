@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import {Redirect} from 'react-router-dom';
 import logo from '../../../circuit.svg';
 
 class Home extends Component {
 
+onChange = () => {
+  return <Redirect to="examples" />
+}
 
 render(){
 
@@ -13,6 +17,11 @@ return(
       <p>
         Welcome to the best logic circuit simulator there is, <code>Logically!</code>
       </p>
+      <button
+      onClick={this.onChange}
+      >
+      Go to examples
+    </button>
       <a
         className="App-link"
         href="https://reactjs.org"

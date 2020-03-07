@@ -1,7 +1,23 @@
 import React, { Component } from "react";
+import {Redirect} from 'react-router-dom';
 import logo from '../../../circuit.svg';
 
 class Examples extends Component {
+
+    state = {
+      redirect: false
+    }
+    setRedirect = () => {
+      this.setState({
+        redirect: true
+      })
+    }
+    renderRedirect = () => {
+      if (this.state.redirect) {
+        return <Redirect to='/howto' />
+      }
+    }
+
 
 
 render(){
@@ -13,6 +29,8 @@ return(
       <p>
         This shall be the examples page
       </p>
+      {this.renderRedirect()}
+      <button onClick={this.setRedirect}>Redirect</button>
       <a
         className="App-link"
         href="https://reactjs.org"
