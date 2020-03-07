@@ -4,9 +4,20 @@ import logo from '../../../circuit.svg';
 
 class Home extends Component {
 
-onChange = () => {
-  return <Redirect to="examples" />
-}
+  state = {
+    redirect: false
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/examples' />
+    }
+  }
+
 
 render(){
 
@@ -17,11 +28,8 @@ return(
       <p>
         Welcome to the best logic circuit simulator there is, <code>Logically!</code>
       </p>
-      <button
-      onClick={this.onChange}
-      >
-      Go to examples
-    </button>
+      {this.renderRedirect()}
+      <button onClick={this.setRedirect}>Go to examples</button>
       <a
         className="App-link"
         href="https://reactjs.org"
