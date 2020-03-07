@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="Logically-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Welcome to the best logic circuit simulator there is, <code>Logically!</code>
         </p>
         <a
           className="App-link"
