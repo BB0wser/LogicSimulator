@@ -1,24 +1,34 @@
 import React from 'react';
-import logo from './circuit.svg';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Home from "./Content/Pages/Home/Home";
+import Examples from "./Content/Pages/Examples/Examples";
 import './App.css';
+
+/*
+class App extends Component {
+render() {
+  return (
+    <div>
+      <Router>
+            <Switch>
+              <Route path="/" exact component={Home} />
+            </Switch>
+      </Router>
+    </div>
+  );
+}
+}
+*/
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="Logically-logo" alt="logo" />
-        <p>
-          Welcome to the best logic circuit simulator there is, <code>Logically!</code>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/examples" exact component={Examples} />
+            </Switch>
+      </Router>
     </div>
   );
 }
