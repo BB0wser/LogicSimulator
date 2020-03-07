@@ -30,7 +30,7 @@ return(
         This shall be the examples page
       </p>
       {this.renderRedirect()}
-      <button onClick={this.setRedirect}>Redirect</button>
+      <button onClick={this.setRedirect}>Go to HowTo</button>
       <a
         className="App-link"
         href="https://reactjs.org"
