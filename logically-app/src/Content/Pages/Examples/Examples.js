@@ -14,9 +14,11 @@ class Examples extends Component {
     }
     renderRedirect = () => {
       if (this.state.redirect) {
-        return <Redirect to='/howto' />
+          this.props.history.push("/howto");
       }
     }
+
+
 
 
 

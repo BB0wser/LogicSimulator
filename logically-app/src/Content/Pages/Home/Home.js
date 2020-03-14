@@ -14,7 +14,7 @@ class Home extends Component {
   }
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/examples' />
+        this.props.history.push("/howto");
     }
   }
 
