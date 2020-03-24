@@ -1,0 +1,15 @@
+This is the information needed for testing the backend information:
+The only needed program is Python3
+
+Currently, the backend program can be run by running:
+	python3 logic.py
+
+It will prompt the user to add gates and connections, creating a circuit within the command terminal. This will eventually be moved to be used in conjunction with the web server, but i'm testing it locally to make sure it works before needing to involve a server.
+
+There is currently !!! NO !!! error checking, so please be sure to type things in correctly. This will be implemented in the future.
+We are also working on getting a save format standardized, so we can load circuits in from a file.
+
+There may be some errors with linking/referencing other circuits from a circuit later on in the process. I'm currently trying to debug.
+
+
+I would recommend starting with creating some inputs, so you can then connect them to the gates.

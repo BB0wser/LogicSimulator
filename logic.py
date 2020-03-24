@@ -15,17 +15,6 @@ while(running):
 
 	userInput = input("Command: ").lower()
 
-#	if userInput == "and":
-#		firstInput = input("What is the first input: ")
-#		secondInput = input("What is the second input: ")
-#		for conn in currentInputs:
-#			if conn.connection_number == firstInput:
-#				firstInput = conn.value
-#			elif conn.connection_number == secondInput:
-#				secondInput = conn.value
-#		
-#		newAnd = gates.And(firstInput, secondInput, "gate" + str(len(currentGates))) 
-#		currentGates.append(newAnd)
 
 	if userInput == "and":
 		firstInput = input("What is the first input: ")
@@ -73,6 +62,7 @@ while(running):
 
 		currentConnections.append(gates.Connection("connect"+str(len(currentConnections)), connectionInfo))
 
+
 	if userInput == "output":
 		connectionInfo = input("Which gate should this connect to: ")
 		for gate in currentGates:
@@ -82,11 +72,15 @@ while(running):
 				print("found gate")
 				print(type(connectionInfo))
 		currentOutputs.append(gates.Connection("output" + str(len(currentOutputs)), connectionInfo))
+
+
 	if userInput == "input": # a connection, but slightly differently created, since it's not a direct
 		currentInputs.append(gates.Input("input" + str(len(currentInputs)), False))
 
+
 	if userInput == "truth table":
 		gates.printTruth(currentInputs, currentOutputs)
+
 
 	if userInput == "update input":
 		inputToEdit = input("Which input: ")
