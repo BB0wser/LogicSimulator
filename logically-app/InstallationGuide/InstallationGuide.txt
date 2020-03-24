@@ -1,0 +1,19 @@
+Prerequisites:
+    You must have node.js installed on your computer. If you do not, please visit https://nodejs.org/en/
+  and follow their instructions for installation.
+    When the program is pulled from the repository, the gitignore does not allow the transfer of the node
+  modules needed to run the application. For first time use only, please run from the command line
+      npm install
+  while in the logically-app directory. This will add the needed node modules into the directory to begin
+  using the software. 
+
+To Run:
+  From the command line, make sure you are in the logically-app directory. Once you are there, simply type:
+    npm start
+  and the program will begin running. A new browser window will appear, and you will be able to interact with
+  the webpage
+
+To exit the program, simply hit ctrl c in the terminal
+
+Please note:
+  This is still in it's very early development stages. The current product is far from what the final will be.
