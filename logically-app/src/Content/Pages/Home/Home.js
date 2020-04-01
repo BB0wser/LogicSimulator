@@ -23,22 +23,27 @@ render(){
 
 return(
   <div className="App">
-    <header className="App-header">
-      <img src={logo} className="Logically-logo" alt="logo" />
-      <p>
-        Welcome to the best logic circuit simulator there is, <code>Logically!</code>
-      </p>
-      {this.renderRedirect()}
-      <button onClick={this.setRedirect}>Go to examples</button>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
+    <div>
+      <div>
+        Div 4
+        {this.renderRedirect()}
+        <button onClick={this.setRedirect}>Go to examples</button>
+        </div>
+        <div>
+        Div 4
+        </div>
+        <div>
+        Div 4
+        </div>
+    </div>
+  <div>
+        <img src={logo} className="Logically-logo" alt="logo" />
+  <p>
+    Welcome to the best logic circuit simulator there is, <code>Logically!</code>
+  </p>
+
+
+  </div>
   </div>
 
 );
