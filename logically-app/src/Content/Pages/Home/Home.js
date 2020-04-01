@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import {Redirect} from 'react-router-dom';
 import logo from '../../../circuit.svg';
+import styled from 'styled-components';
+
+const Navbox = styled.div`height: 150px;   background: red;   justify-content: center; `;
+const NavboxContainer = styled.div`width: 90%;   height: 50%;   padding-right: 5%; padding-left: 5%; grid-column-gap: 25px; background: #F0FFFF;   display: grid; grid-template-columns: 1fr 1fr 1fr `;
 
 class Home extends Component {
 
@@ -23,19 +27,19 @@ render(){
 
 return(
   <div className="App">
-    <div>
-      <div>
+    <NavboxContainer>
+      <Navbox>
         Div 4
         {this.renderRedirect()}
         <button onClick={this.setRedirect}>Go to examples</button>
-        </div>
-        <div>
+        </Navbox>
+        <Navbox>
         Div 4
-        </div>
-        <div>
+        </Navbox>
+        <Navbox>
         Div 4
-        </div>
-    </div>
+        </Navbox>
+    </NavboxContainer>
   <div>
         <img src={logo} className="Logically-logo" alt="logo" />
   <p>
