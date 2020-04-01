@@ -12,17 +12,15 @@ class Navbar extends Component {
             <Link to="/">Home</Link>
           </li>
           <li>
- <Link to="/examples">Examples</Link> 
+             <Link to="/examples">Examples</Link> 
           </li>
- 
           <li>
- <Link to="/howto">How to</Link> 
+             <Link to="/howto">How to</Link> 
           </li>
- 
           <li>
- <Link to="/sketch">New sketch</Link> 
+             <Link to="/sketch">New sketch</Link> 
           </li>
- 
+           
         </ul>
       </div>
     );
