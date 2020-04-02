@@ -14,10 +14,9 @@ class Home extends Component {
   }
   renderRedirect = () => {
     if (this.state.redirect) {
-        this.props.history.push("/howto");
+        this.props.history.push('/examples');
     }
   }
-
 
 render(){
 
@@ -27,6 +26,15 @@ return(
       <img src={logo} className="Logically-logo" alt="logo" />
       <p>
         Welcome to the best logic circuit simulator there is, <code>Logically!</code>
+      </p>
+      <p>
+        This app was created by GenericTeam, a Senior Seminar group of Longwood University Students!
+      </p>
+      <p>
+        For examples on how to use Logically, visit the Examples page
+      </p>
+      <p>
+        To learn more about circuits and logic gates, or how to interact with our sketchboard, visit the How-To page
       </p>
       {this.renderRedirect()}
       <button onClick={this.setRedirect}>Go to examples</button>

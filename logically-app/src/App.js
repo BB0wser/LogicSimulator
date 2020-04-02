@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import Toolbar from "./Toolbar/Toolbar";
+//import Toolbar from "./Toolbar/Toolbar";
 import Home from "./Content/Pages/Home/Home";
 import Examples from "./Content/Pages/Examples/Examples";
 import HowTo from "./Content/Pages/HowTo/HowTo";
