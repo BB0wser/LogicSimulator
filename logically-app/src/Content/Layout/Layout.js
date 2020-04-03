@@ -4,12 +4,14 @@ import { FaAlignRight } from 'react-icons/fa';
 import "./Layout.module.css";
 
 class Navbar extends Component{
+
   state = {
       toggle:false
   }
   Toggle = () => {
       this.setState({toggle:!this.state.toggle})
   }
+
     render() {
         return (
           <>
