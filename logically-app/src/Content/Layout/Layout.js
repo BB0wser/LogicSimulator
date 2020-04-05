@@ -28,3 +28,28 @@ class Navbar extends Component {
 }
 
 export default Navbar;
+
+/*
+const toolbarStyle = {
+  display: 'flex',
+  width: '1000px',
+  backgroundColor: '#d6e2ea',
+  padding: '6px 8px'
+};
+
+class Toolbar extends Component {
+  render() {
+    return (
+      <div style={toolbarStyle}>
+        <button>Home</button>
+        <button>examples</button>
+        <button>How-to</button>
+        <div style={{ flex: 1 }}></div>
+        <button>Sketch</button>
+      </div>
+    );
+  }
+}
+
+export default Toolbar;
+*/
