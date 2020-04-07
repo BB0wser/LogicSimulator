@@ -6,24 +6,26 @@ import examples from "../../../Logos/examples.svg";
 import plus from "../../../Logos/plus.svg";
 import styled from "styled-components";
 
-const Navbox = styled.div`height: 150px;   background: red;   justify-content: center; `;
+const Navbox = styled.div`height: 33vh;  width: 33vh; background: #ADD8E6;   justify-content: center; `;
 const Image = styled.img`
   height: 75px;
   width: 75px;
   margin-top: 20px;
 `;
 const NavboxContainer = styled.div`
+  position: absolute;
   width: 90%;
 
-   height: 50%;
+   height: 55%;
 
    padding-right: 5%;
   padding-left: 5%;
-  grid-column-gap: 25px;
-  background: #f0ffff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: red;
 
-   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+   display: flex;
+  justify-content: space-around;
 `;
 
 class Home extends Component {
