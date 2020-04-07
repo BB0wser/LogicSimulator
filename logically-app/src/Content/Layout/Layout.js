@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import logo from "../../circuit.svg";
 
 const Navigation = styled.div`
   position: absolute;
@@ -9,19 +10,37 @@ const Navigation = styled.div`
   width: 100%;
   height: 50px;
 
-   background: blue;
+   background: #457ccf;
   justify-content: space-between;
   display: flex;
   flex-direction: row;
 `;
 
 const BrandLogo = styled.div`
-  width: 200px;
-  background-color: green;
+  width: 30%;
+  justify-content: start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-left: 20px;
+  align-items: center;
+
+  img {
+    object-fit: contain;
+    height: 110%;
+  }
+
+  h1 {
+    padding-left: 20px;
+    font-size: 25px;
+    font-weight: bold;
+
+      text-transform: uppercase;
+  }
 `;
 
 const NavList = styled.ul`
-  width: 450px;
+  width: 37%;
 
   display: flex;
   flex-direction: row;
@@ -38,7 +57,7 @@ const NavList = styled.ul`
 const StyledLink = styled(Link)`
    color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
 
     text-transform: uppercase;
@@ -48,7 +67,11 @@ class Navbar extends Component {
   render() {
     return (
       <Navigation>
-        <BrandLogo>Logo</BrandLogo>
+        <BrandLogo>
+          <img src={logo} />
+
+          <h1>Logically</h1>
+        </BrandLogo>
         <NavList>
           <li>
             <StyledLink to="/">Home</StyledLink>
