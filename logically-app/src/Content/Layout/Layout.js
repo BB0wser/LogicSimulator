@@ -29,18 +29,10 @@ const BrandLogo = styled.div`
     object-fit: contain;
     height: 110%;
   }
-
-  h1 {
-    padding-left: 20px;
-    font-size: 25px;
-    font-weight: bold;
-
-      text-transform: uppercase;
-  }
 `;
 
 const NavList = styled.ul`
-  width: 37%;
+  width: 30%;
 
   display: flex;
   flex-direction: row;
@@ -63,19 +55,27 @@ const StyledLink = styled(Link)`
     text-transform: uppercase;
 `;
 
+const StyledHomeLink = styled(Link)`
+   color: black;
+  text-decoration: none;
+
+  padding-left: 20px;
+  font-size: 25px;
+  font-weight: bold;
+
+    text-transform: uppercase;
+`;
+
 class Navbar extends Component {
   render() {
     return (
       <Navigation>
         <BrandLogo>
           <img src={logo} />
-
-          <h1>Logically</h1>
+          <StyledHomeLink to="/">Logically</StyledHomeLink>
         </BrandLogo>
+
         <NavList>
-          <li>
-            <StyledLink to="/">Home</StyledLink>
-          </li>
           <li>
              <StyledLink to="/sketch">New sketch</StyledLink> 
           </li>
