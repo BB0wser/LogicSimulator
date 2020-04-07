@@ -9,27 +9,27 @@ import SketchBoard from "./Content/Pages/SketchBoard/SketchBoard";
 import "./App.css";
 import styled from "styled-components";
 
+/*
 const Container = styled.div`
   position: absolute;
   top: 50px;
   left: 0;
   width: 100%;
-  height: 100% - 50px;
+  height: 100%;
 `;
+*/
 
 function App() {
   return (
     <div>
       <Router>
         <Navbar />
-        <Container>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/examples" exact component={Examples} />
-            <Route path="/howto" exact component={HowTo} />
-            <Route path="/sketch" exact component={SketchBoard} />
-          </Switch>
-        </Container>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/examples" exact component={Examples} />
+          <Route path="/howto" exact component={HowTo} />
+          <Route path="/sketch" exact component={SketchBoard} />
+        </Switch>
       </Router>
     </div>
   );
