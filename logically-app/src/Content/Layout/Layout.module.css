@@ -1,20 +1,18 @@
 /* Elements */
 
-.navBar{
+.navBar {
   position: right;
-  color:white;
+  color: white;
   background-color: black;
-  padding:2px;
-  float:right;
+  float: right;
 }
-.button{
-float:left;
+.button {
+  float: left;
 }
-ul{
-color:purple;
-background-color: green;
+ul {
+  background-color: #7fffd4;
 }
 
-li{
-  color:red;
+li {
+  color: white;
 }
