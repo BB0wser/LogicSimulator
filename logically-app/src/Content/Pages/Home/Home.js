@@ -6,24 +6,81 @@ import examples from "../../../Logos/examples.svg";
 import plus from "../../../Logos/plus.svg";
 import styled from "styled-components";
 
-const Navbox = styled.div`height: 150px;   background: red;   justify-content: center; `;
-const Image = styled.img`
-  height: 75px;
-  width: 75px;
-  margin-top: 20px;
+const Navbox = styled(Link)`
+  height: 33vh;
+
+ width: 33vh;
+  background: #b6d3ff;
+  text-decoration: none;
+  position: relative;
+
+ justify-content: center;
+
+  div {
+    text-decoration: none;
+    underline: none;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  img {
+    height: 40%;
+    width: 40%;
+    left: 30%;
+    top: 30%
+    position: absolute;
+  }
 `;
+
+const Container = styled.div`
+  position: absolute;
+  top: 50px;
+  height: calc(100%-50px);
+  bottom: 0;
+  width: 100%;
+`;
+
 const NavboxContainer = styled.div`
+  position: absolute;
+  width: 80%;
+
+   height: 50%;
+  top: 0;
+  padding-left: 10%;
+  padding-right: 10%;
+
+  background: white;
+
+   display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const StyledLink = styled(Link)`
+   color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+
+    text-transform: uppercase;
+`;
+
+const TextContainer = styled.div`
   width: 90%;
+  position: absolute;
 
    height: 50%;
 
+  top: 50%;
+
    padding-right: 5%;
   padding-left: 5%;
-  grid-column-gap: 25px;
-  background: #f0ffff;
 
-   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  background: yellow;
+
+   display: flex;
+  justify-content: space-around;
 `;
 
 class Home extends Component {
@@ -43,35 +100,29 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Container>
         <NavboxContainer>
-          <Link to="/sketch">
-            <Navbox>
-              <div>Create a new sketch</div>
-              <Image src={plus} />
-            </Navbox>
-          </Link>
-          <Link to="/examples">
-            <Navbox>
-              <div>Go to examples</div>
-              <Image src={examples} />
-            </Navbox>
-          </Link>
-          <Link to="/howto">
-            <Navbox>
-              <div>How to use</div>
-              <Image src={idea} />
-            </Navbox>
-          </Link>
+          <Navbox to="/sketch">
+            <div>Create a new sketch</div>
+            <img src={plus} />
+          </Navbox>
+          <Navbox to="/examples">
+            <div>Go to examples</div>
+            <img src={examples} />
+          </Navbox>
+          <Navbox to="/howto">
+            <div>How to use</div>
+            <img src={idea} />
+          </Navbox>
         </NavboxContainer>
-        <div>
-          <img src={logo} className="Logically-logo" alt="logo" />
+        <TextContainer>
+          <img src={logo} />
           <p>
             Welcome to the best logic circuit simulator there is,{" "}
             <code>Logically!</code>
           </p>
-        </div>
-      </div>
+        </TextContainer>
+      </Container>
     );
   }
 }
