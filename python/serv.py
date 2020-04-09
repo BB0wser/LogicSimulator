@@ -19,13 +19,12 @@ def jasonex():
 	#call function here with these to run through logic
 	#return boolean output in that function
 	#output = backend(gates,connections, inputs, outputgate)
+	
+	#for now just returns this
 	output = inputs[0] and inputs[1]
 	rv = {'output' : output}
 	return json.dumps(rv)
 
-	#just to show its reading data from json
-#	string = ",".join(gates)
-#	return string
 
 if __name__ == "__main__":
 	app.run(debug=True, port=5000)
