@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";/*important libry*/
 import logo from '../../../circuit.svg';
-
+import and from '../../../Logos/and.svg';
 class SketchBoard extends Component {
 componentDidMount(){}/*for placing nodes*/
 constructor(props){
@@ -50,9 +50,16 @@ _createObject = object => {
    }
 
    _buttonCreateBox1 = () => {
+
      this._createObject(
+
        this._createBox({
          backgroundColor: "white",
+
+/*<img src={and}/>,*/
+          /*background:and,*/
+          /*background:<img src={and}alt="and"/>,
+          background:and,*/
          width: "100px",
          height: "100px"
        })
