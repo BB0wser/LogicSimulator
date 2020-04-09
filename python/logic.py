@@ -95,14 +95,16 @@ while(running):
 			inputToEdit.value = True
 		elif newValue.lower() in ['false', 'f']:
 			inputToEdit.value = False
-	for gate in currentGates:
-		gate.update()
 
-	for conn in currentConnections:
-		conn.update()
+	for i in range( len(currentGates) + len(currentConnections) + len(currentOutputs) ):
+		for gate in currentGates:
+			gate.update()
 
-	for out in currentOutputs:
-		out.update()
+		for conn in currentConnections:
+			conn.update()
+
+		for out in currentOutputs:
+			out.update()
 
 	for e in currentInputs:
 		print(e.connection_number, end = ":")
