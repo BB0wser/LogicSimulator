@@ -10,7 +10,10 @@ def home():
 @app.route("/jsonex", methods=['POST'])
 def jasonex():
 	rquest = request.get_json()
-
+	
+	for gate in rquest["gates"]:
+		
+	
 	lang = rquest['language']
 	pversion = rquest['version_info']['python']
 	frame = rquest['framework']
