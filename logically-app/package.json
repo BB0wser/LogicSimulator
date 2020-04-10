@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
@@ -16,10 +17,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-	"start-python": "cd ../python && venv/bin/flask run --no-debugger",
+    "start-python": "cd ../python && venv/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
-	"test-api": "cd ../python && flask test",
+    "test-api": "cd ../python && flask test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-	"proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000"
 }

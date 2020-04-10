@@ -5,6 +5,7 @@ import idea from "../../../Logos/idea.svg";
 import examples from "../../../Logos/examples.svg";
 import plus from "../../../Logos/plus.svg";
 import styled from "styled-components";
+import axios from "../../../axios-logically";
 
 const Navbox = styled(Link)`
   height: 33vh;
@@ -84,18 +85,38 @@ const TextContainer = styled.div`
 `;
 
 class Home extends Component {
-  state = {
-    redirect: false
+  constructor() {
+    super();
+
+    this.state = {
+      logic: {
+        gates: ["or", "and"],
+        connections: [
+          ["input0", "gate0"],
+          ["input1", "gate0"],
+          ["input2", "gate1"],
+          ["gate0", "gate1"]
+        ],
+        inputs: [true, false, false],
+        output: true,
+        truth_table: {}
+      }
+    };
+  }
+
+  displayError = () => {
+    this.setState({ error: "Your request failed. Please try again later." });
   };
-  setRedirect = () => {
-    this.setState({
-      redirect: true
-    });
-  };
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      this.props.history.push("/howto");
-    }
+
+  addBookHandler = book => {
+    axios
+      .post("/", this.state.logic)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        this.displayError();
+      });
   };
 
   render() {
@@ -120,6 +141,7 @@ class Home extends Component {
           <p>
             Welcome to the best logic circuit simulator there is,{" "}
             <code>Logically!</code>
+            <button onClick={this.addBookHandler}>Testing json</button>
           </p>
         </TextContainer>
       </Container>

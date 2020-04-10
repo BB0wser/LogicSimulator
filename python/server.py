@@ -1,16 +1,15 @@
 from flask import Flask, request
-#from flask_cors import CORS
+from flask_cors import CORS
 import json
-import sys
 
 app = Flask(__name__)
 
-print(sys.path)
-
 @app.route("/", methods=['POST', 'GET'])
+@cross_origin()
 def home():
-#	response.headers.add('Access-Control-Allow-Origin', '*')
-	return 'what you looking at?'
+	response = flask.jsonify({'some': 'data'})
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.route("/jsonex", methods=['POST'])
 def jasonex():
