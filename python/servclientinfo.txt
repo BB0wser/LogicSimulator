@@ -1,0 +1,13 @@
+Breif instructions for server/client
+-to run server
+	python3 serv.py
+
+-it starts up a server that accepts a post request with the json format shown in "example.json"
+-must have at least 2 inputs
+-you can test the server by sending post request via Postman or with "client.py"
+
+-to run "client.py"
+	python3 client.py <file.json> 
+
+-the client sends the json file to the server and prints out the response
+
