@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";/*important libry*/
+import { Stage, Layer, Rect, Text } from 'react-konva';
+import Konva from 'konva';
 import logo from '../../../circuit.svg';
 import and from '../../../Logos/and.svg';
+
+
 class SketchBoard extends Component {
+
+/*SketchBoard setup and main container*/
   componentDidMount() { }
 
     constructor(props) {
@@ -24,11 +30,15 @@ class SketchBoard extends Component {
       this._dragTask = this._dragTask.bind(this);
       this.showMenu = this.showMenu.bind(this);
       this.closeMenu = this.closeMenu.bind(this);
+      this.buttonDrawLine = this._buttonDrawLine.bind(this);
     }
 
 
 
-
+/* handles the expansion and collapse of the menu for:
+      adding gates
+      connecting gates
+      deleting gates*/
     showMenu(event) {
       event.preventDefault();
 
@@ -48,11 +58,8 @@ class SketchBoard extends Component {
       }
     }
 
-
-
-
-
-
+/* Where the object map is initialized and set up everytime a box is Created
+boxes will later be replaced with svg gate figures, but encountered some trouble there*/
     _createObject = object => {
       var ObjectMap = this.state.ObjectMap;
       ObjectMap.push(object);
@@ -70,6 +77,8 @@ class SketchBoard extends Component {
         <div
           style={styleObject}
           draggable="true"
+
+
           onDragEnd={event => {
             this._dragTask(event);
           }}
@@ -77,11 +86,12 @@ class SketchBoard extends Component {
       );
     };
 
+/* handles dragging the boxes*/
     _dragTask(event) {
       event.target.style.top = event.clientY + "px";
       event.target.style.left = event.clientX + "px";
     }
-
+/*creates the different color boxes that will later become the logic gates*/
     _buttonCreateBox1 = () => {
       this._createObject(
         this._createBox({
@@ -89,8 +99,7 @@ class SketchBoard extends Component {
           width: "100px",
           height: "100px"
         })
-      );
-    }
+      );}
 
       _buttonCreateBox2 = () => {
         this._createObject(
@@ -110,6 +119,18 @@ class SketchBoard extends Component {
             })
           );}
 
+
+/*attempt to draw a line for gate connections. Currently does not work*/
+          _buttonDrawLine = () => {
+            var line = new Konva.Line({
+              x: 100,
+              y: 50,
+              points: [73, 70, 340, 23, 450, 60, 500, 20],
+              stroke: 'red',
+              tension: 1
+            });
+          };
+
           _buttonCreateBox4 = () => {
             this._createObject(
               this._createBox({
@@ -120,8 +141,15 @@ class SketchBoard extends Component {
             );
     };
 
+
+
     render() {
       return (
+        /* displays the canvas for working with the gates and the menus and buttons*/
+
+        /*Also home of the "dropdown" menu to add/delete gates and connections
+        Note: delete does not currently work. The button at the moment
+        is merely a placeholder. Same with connect two gates button*/
         <div style={this.state.MainContainer}>
           <button type="button" onClick={this._buttonCreateBox1}>
             Create gate
@@ -138,13 +166,18 @@ class SketchBoard extends Component {
                     this.dropdownMenu = element;
                   }}
                 >
+
                   <button type="button" onClick={this._buttonCreateBox1}>
-                    Create blue gate
+                  Create blue gate
           </button>
                   <button type="button" onClick={this._buttonCreateBox2}>
                     Create  pink gate
           </button><button type="button" onClick={this._buttonCreateBox3}>
                     Create purple gate
+          </button><button type="button" onClick={this._buttonDrawLine}>
+                    Connect two gates
+          </button><button type ="button" onClick={this.props.onDelete}>
+                    Delete Gate
           </button>
                 </div>
               )
