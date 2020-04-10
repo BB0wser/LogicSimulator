@@ -16,19 +16,20 @@ def home():
 @app.route("/jsonex", methods=['POST'])
 def jasonex():
 	rquest = request.get_json()
+	
+	gates = rquest['gates']
+	connections = rquest['connections']
+	inputs = rquest['inputs']
+	outputgate = rquest['outputgate']
+	
+	#call function here with these to run through logic
+	#return boolean output in that function
+	#output = backend(gates,connections, inputs, outputgate)
 
-	lang = rquest['language']
-	pversion = rquest['version_info']['python']
-	frame = rquest['framework']
-	fversion = rquest['version_info']['flask']
-	type3 = rquest['types'][2]
-	boolean = rquest['boolean_test']
-
-	return '''The language is {} version {}
-The framework is {} version {}
-The third type is {}
-The boolean was {}'''.format(lang, pversion, frame, fversion, type3, boolean)
-
+	#for now just returns this
+	output = inputs[0] and inputs[1]
+	rv = {'output' : output}
+	return json.dumps(rv)
 
 if __name__ == "__main__":
 	app.run(debug=True, port=5000)
