@@ -1,5 +1,15 @@
 This is the information needed for testing the backend information:
-The only needed program is Python3
+
+There are some dependencies needed for the scripts to run:
+	flask
+	flask_cors
+
+If you do not have these dependencies, they can be installed using:
+	pip3 install flask
+	pip3 install flask_cors
+
+These command will only need to be run once. After that, the script should work.
+
 
 Currently, the backend program can be run by running:
 	python3 logic.py
@@ -13,3 +23,5 @@ There may be some errors with linking/referencing other circuits from a circuit 
 
 
 I would recommend starting with creating some inputs, so you can then connect them to the gates.
+
+Logic.py is a temporary file for testing. Eventually, all this logic/updating will be moved into serv.py to allow communication with the server.

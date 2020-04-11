@@ -11,7 +11,7 @@ running = True
 
 while(running):
 
-	print("Avaiable options: And, Or, Not, ExclusiveOr, Connection, Input, Output, Truth Table, Update Input")
+	print("Avaiable options: And, Or, Not, ExclusiveOr, Connection, Input, Output, Update Input")
 
 	userInput = input("Command: ").lower()
 
