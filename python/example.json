@@ -2,5 +2,12 @@
 	"gates" : ["or","and"],
 	"connections" : [["input0","gate0"],["input1","gate0"],["input2","gate1"],["gate0","gate1"]],
 	"inputs" : [true,false,false],
-	"outputgate" : "gate1"
+	"outputgate" : "gate1",
+	"output" : false,
+	"truth-table" : {
+		"intput0" : [true,true,true,true,false,false,false,false],
+		"input1" : [true,true,false,false,true,true,false,false],
+		"input2" : [true,false,true,false,true,false,true,false],
+		"outputs" : [true,false,true,false,true,false,false,false]
+	}
 }

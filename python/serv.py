@@ -13,6 +13,34 @@ def home():
 	#response.headers.add('Access-Control-Allow-Origin', '*')
 	return 'what you looking at?'
 
+@app.route("/save", methods=['POST'])
+def saveCircuit():
+	#need to figure out good system for filenames
+	rquest = request.get_json()
+	with open("exsave.json","w") as savejson:
+		try:
+			savejson.write(json.dumps(rquest, indent = 4))
+		except:
+			return "saving failed"
+	
+	return "save successful"
+
+
+@app.route("/load", methods=['POST'])
+def loadCircuit():
+	#again, need system for what file to load
+	filename = request.data
+	with open(filename,"r") as f:
+		try:
+			data = json.load(f)
+		except:
+			#frontend will expect json object back
+			error = {"ERROR" : "couldnt load file"}
+			return json.dumps(error)
+	
+	return json.dumps(data)
+
+
 @app.route("/jsonex", methods=['POST'])
 def jasonex():
 	rquest = request.get_json()
