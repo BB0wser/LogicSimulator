@@ -9,5 +9,6 @@
 		"input1" : [true,true,false,false,true,true,false,false],
 		"input2" : [true,false,true,false,true,false,true,false],
 		"outputs" : [true,false,true,false,true,false,false,false]
-	}
+	},
+	"saveas" : "save.json"
 }

@@ -2,7 +2,13 @@ Breif instructions for server/client
 -to run server
 	python3 serv.py
 
--it starts up a server that accepts a post request with the json format shown in "example.json"
+-server runs on "localhost:5000/"
+-paths: "localhost:5000/" + :
+	"" - works with GET, POST, and OPTIONS, will return string to show server is working
+	"jsonex" - (POST only) recieves json containing circuit data, processes it, and returns output of circuit in json format. Example: {"output" : true}
+	"save" - (POST only) recieves json, saves it to file to load later, returns string denoting success or failure of saving file
+	"load" - (POST only) recieves string containing filename to load, returns json data in file, or returns {"ERROR" : "error string"} json if couldnt load
+	
 -must have at least 2 inputs
 -you can test the server by sending post request via Postman or with "client.py"
 
@@ -10,4 +16,4 @@ Breif instructions for server/client
 	python3 client.py <file.json> 
 
 -the client sends the json file to the server and prints out the response
-
+-client sends json file to "localhost:5000/jsonex"

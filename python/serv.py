@@ -15,28 +15,41 @@ def home():
 
 @app.route("/save", methods=['POST'])
 def saveCircuit():
-	#need to figure out good system for filenames
+	#frontend should let user type in filename to save as
 	rquest = request.get_json()
-	with open("exsave.json","w") as savejson:
-		try:
+	
+	#saves it to the "saves" directory
+	saveas = "saves/" + rquest['saveas']
+	rquest.pop('saveas')
+	
+	#creates if new file, overwrites if exists (need to overwrite so people can update their circuits and save again)
+	try:
+		with open(saveas,"w") as savejson:
 			savejson.write(json.dumps(rquest, indent = 4))
-		except:
-			return "saving failed"
+			savejson.close()
+	except:
+		print("save failed")
+		return "save failed"
 	
 	return "save successful"
 
 
 @app.route("/load", methods=['POST'])
 def loadCircuit():
-	#again, need system for what file to load
-	filename = request.data
-	with open(filename,"r") as f:
-		try:
+	#user needs to know what files they have saved on frontend side
+	
+	#frontend can send filename just as string, can change this to accept json if thats easier for frontend
+	filename = "saves/" + request.data.decode()
+	
+	try:
+		with open(filename,"r") as f:
 			data = json.load(f)
-		except:
-			#frontend will expect json object back
-			error = {"ERROR" : "couldnt load file"}
-			return json.dumps(error)
+			f.close()
+	except:
+		#frontend will expect json object back
+		print("ERROR: failed to load file")
+		error = {"ERROR" : "couldnt load file"}
+		return json.dumps(error)
 	
 	return json.dumps(data)
 
@@ -50,7 +63,8 @@ def jasonex():
 	inputs = rquest['inputs']
 	outputgate = rquest['outputgate']
 	for gate in gates:
-		print(type(gate))	
+		print(type(gate))
+	
 	#call function here with these to run through logic
 	#return boolean output in that function
 	#output = backend(gates,connections, inputs, outputgate)
@@ -74,3 +88,5 @@ def jasonex():
 
 if __name__ == "__main__":
 	app.run(debug=True, port=5000)
+
+
