@@ -1,0 +1,16 @@
+To server:
+{
+	"filename" : "nameoffile",
+	"example" : true/false
+}
+
+server returns:
+	the entire "nameoffile" json file
+
+		or the following json object:
+
+	{"ERROR" : "couldnt load file"}
+
+
+NOTES:
+	-the "example" key is true if frontend is loading a circuit from the examples page, false if loading user-saved circuit

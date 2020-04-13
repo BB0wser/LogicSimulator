@@ -38,8 +38,14 @@ def saveCircuit():
 def loadCircuit():
 	#user needs to know what files they have saved on frontend side
 	
-	#frontend can send filename just as string, can change this to accept json if thats easier for frontend
-	filename = "saves/" + request.data.decode()
+	#if its easier to send as just a string, we can make a /examples path just for loading from examples page
+	rquest = request.get_json()
+	
+	#if its from the example page
+	if rquest['example']:
+		filename = "example/" + rquest['filename']
+	else:
+		filename = "saves/" + rquest['filename']
 	
 	try:
 		with open(filename,"r") as f:
@@ -56,6 +62,11 @@ def loadCircuit():
 
 @app.route("/jsonex", methods=['POST'])
 def jasonex():
+	#maybe move all this to "/"
+	
+	#make different path for generating truth table?
+	#or generate truth table everytime so its ready on frontend?
+	
 	rquest = request.get_json()
 	
 	gates = rquest['gates']

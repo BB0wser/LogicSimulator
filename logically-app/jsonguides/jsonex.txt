@@ -1,0 +1,15 @@
+to server:
+{
+    "inputs" : [true,false,false],
+    "gates" : ["or","and"],
+    "connections" : [["input0","gate0"],["input1","gate0"],["input2","gate1"],["gate0","gate1"],["gate1","output"]]
+}
+
+server returns:
+{
+	"output" : true/false
+}
+
+NOTES:
+	-"gates", "connections", and "inputs" are arrays of however many of each there are.
+	-"gates" and "inputs" array should be in order, for example: the "input0" in "connections" refers to "inputs"[0] in the array

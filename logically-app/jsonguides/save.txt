@@ -1,0 +1,15 @@
+to server:
+	send entire constructed json object for that circuit, plus add to the file the name to save the file as:
+	{
+		"saveas" : "nameoffile"
+	}
+
+server returns:
+	the string:
+	"save successful" 
+		or
+	"save failed"
+
+	
+Notes:
+	-note that the server returns a string, not a json object
