@@ -4,6 +4,18 @@ import { Stage, Layer, Rect, Text } from "react-konva";
 import Konva from "konva";
 import logo from "../../../circuit.svg";
 import and from "../../../Logos/and.svg";
+import styled from "styled-components";
+
+const Container = styled.div`
+  position: absolute;
+  top: 50px;
+  height: calc(100%-50px);
+  bottom: 0;
+  width: 100%;
+  /*-----*/
+  display: flex;
+  background: #282c34;
+`;
 
 class SketchBoard extends Component {
   /*SketchBoard setup and main container*/
@@ -12,12 +24,6 @@ class SketchBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      MainContainer: {
-        backgroundColor: "#282c34",
-        position: "relative",
-        display: "flex",
-        minHeight: "100vh"
-      },
       showMenu: false,
       ObjectMap: []
     };
@@ -140,7 +146,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
       /*Also home of the "dropdown" menu to add/delete gates and connections
         Note: delete does not currently work. The button at the moment
         is merely a placeholder. Same with connect two gates button*/
-      <div style={this.state.MainContainer}>
+      <Container>
         <button type="button" onClick={this._buttonCreateBox1}>
           Create gate
         </button>
@@ -172,7 +178,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
         {this.state.ObjectMap.map((item, index) => {
           return item;
         })}
-      </div>
+      </Container>
     );
   }
 }
