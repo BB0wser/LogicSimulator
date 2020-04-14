@@ -17,6 +17,16 @@ const Container = styled.div`
   background: #282c34;
 `;
 
+const Sidebar = styled.div`
+  position: absolute;
+  top: 0;
+  height: 100%;
+  bottom: 0;
+  width: 100px;
+
+  background: red;
+`;
+
 class SketchBoard extends Component {
   /*SketchBoard setup and main container*/
   componentDidMount() {}
@@ -147,37 +157,39 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
         Note: delete does not currently work. The button at the moment
         is merely a placeholder. Same with connect two gates button*/
       <Container>
-        <button type="button" onClick={this._buttonCreateBox1}>
-          Create gate
-        </button>
-        <button onClick={this.showMenu}>Show menu</button>
-        {this.state.showMenu ? (
-          <div
-            className="menu"
-            ref={element => {
-              this.dropdownMenu = element;
-            }}
-          >
-            <button type="button" onClick={this._buttonCreateBox1}>
-              Create blue gate
-            </button>
-            <button type="button" onClick={this._buttonCreateBox2}>
-              Create pink gate
-            </button>
-            <button type="button" onClick={this._buttonCreateBox3}>
-              Create purple gate
-            </button>
-            <button type="button" onClick={this._buttonDrawLine}>
-              Connect two gates
-            </button>
-            <button type="button" onClick={this.props.onDelete}>
-              Delete Gate
-            </button>
-          </div>
-        ) : null}
-        {this.state.ObjectMap.map((item, index) => {
-          return item;
-        })}
+        <Sidebar>
+          <button type="button" onClick={this._buttonCreateBox1}>
+            Create gate
+          </button>
+          <button onClick={this.showMenu}>Show menu</button>
+          {this.state.showMenu ? (
+            <div
+              className="menu"
+              ref={element => {
+                this.dropdownMenu = element;
+              }}
+            >
+              <button type="button" onClick={this._buttonCreateBox1}>
+                Create blue gate
+              </button>
+              <button type="button" onClick={this._buttonCreateBox2}>
+                Create pink gate
+              </button>
+              <button type="button" onClick={this._buttonCreateBox3}>
+                Create purple gate
+              </button>
+              <button type="button" onClick={this._buttonDrawLine}>
+                Connect two gates
+              </button>
+              <button type="button" onClick={this.props.onDelete}>
+                Delete Gate
+              </button>
+            </div>
+          ) : null}
+          {this.state.ObjectMap.map((item, index) => {
+            return item;
+          })}
+        </Sidebar>
       </Container>
     );
   }
