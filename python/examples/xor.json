@@ -1,5 +1,5 @@
 {
-	"gates" : ["xor"],
+	"xor" : ["gate0"],
 	"inputs" : [false,false],
 	"connections" : [["input0","gate0"],["input1","gates0"],["gates0","output0"]],
 	"truth-table" : {

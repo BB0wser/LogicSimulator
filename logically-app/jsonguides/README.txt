@@ -8,6 +8,8 @@ Under that will show what the server returns back.
 
 Below that may or may not be various notes
 
+------------LET ME (Teagan) KNOW IF ITS TOO DIFFICULT/INEFFICIENT TO BUILD YOUR JSON OBJECTS THIS WAY SO I CAN WORK WITH YOU TO MAKE IT WORK FOR BOTH ENDS
+
 NOTES (just to be safe):
 	-The strings on the left side of the colons must be exactly the same as shown in the example
 	

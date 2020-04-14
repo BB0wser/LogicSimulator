@@ -1,6 +1,6 @@
 To server:
 {
-	"filename" : "nameoffile",
+	"filename" : "nameoffile.json",
 	"example" : true/false
 }
 

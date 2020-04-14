@@ -1,7 +1,7 @@
 to server:
 	send entire constructed json object for that circuit, plus add to the file the name to save the file as:
 	{
-		"saveas" : "nameoffile"
+		"saveas" : "nameoffile.json"
 	}
 
 server returns:

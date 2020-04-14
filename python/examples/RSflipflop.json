@@ -1,5 +1,7 @@
 {
 	"gates" : ["not", "and", "not", "not", "and", "not"],
+	"not" : ["gate0","gate2"],
+	"nand" : ["gate1","gate3"],
 	"inputs" : ["false","false"],
 	"connections": [
 		["input0","gate0"],
