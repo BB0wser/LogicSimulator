@@ -16,6 +16,7 @@ const Navbox = styled(Link)`
   position: relative;
 
    justify-content: center;
+  border: 2px solid silver;
 
     div {
     text-decoration: none;
