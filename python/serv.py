@@ -69,11 +69,34 @@ def jasonex():
 	
 	rquest = request.get_json()
 	
-	gates = rquest['gates']
+#	gates = rquest['gates']
+	andgates = None
+	orgates = None
+	notgates = None
+	xorgates = None
+	norgates = None
+	nandgates = None
+	
+	if 'and' in rquest:
+		andgates = rquest['and']
+	
+	if 'or' in rquest:
+		orgates = rquest['or']
+	
+	if 'nor' in rquest:
+		norgates = rquest['nor']
+	
+	if 'not' in rquest:
+		notgates = rquest['not']
+	
+	if 'xor' in rquest:
+		xorgates = rquest['xor']
+	
+	if 'nand' in rquest:
+		nandgates = rquest['nand']
+	
 	connections = rquest['connections']
 	inputs = rquest['inputs']
-	for gate in gates:
-		print(type(gate))
 	
 	#call function here with these to run through logic
 	#return boolean output in that function
