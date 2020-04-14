@@ -10,15 +10,18 @@ import axios from "../../../axios-logically";
 const Navbox = styled(Link)`
   height: 33vh;
 
- width: 33vh;
+   width: 33vh;
   background: #b6d3ff;
   text-decoration: none;
   position: relative;
 
- justify-content: center;
+   justify-content: center;
 
-  div {
+    div {
     text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 15px;
     underline: none;
     color: white;
     font-size: 22px;
@@ -29,7 +32,7 @@ const Navbox = styled(Link)`
     height: 40%;
     width: 40%;
     left: 30%;
-    top: 30%
+    top: 30%;
     position: absolute;
   }
 `;
@@ -47,7 +50,7 @@ const NavboxContainer = styled.div`
   width: 80%;
 
    height: 50%;
-  top: 0;
+  top: 50%;
   padding-left: 10%;
   padding-right: 10%;
 
@@ -71,17 +74,26 @@ const TextContainer = styled.div`
   width: 90%;
   position: absolute;
 
+  text-align: justify;
+  align-items: center;
+
+   text-justify: inter-word;
+
    height: 50%;
 
-  top: 50%;
+  top: 0%;
 
    padding-right: 5%;
   padding-left: 5%;
 
-  background: yellow;
+  background: #f0f8ff;
 
    display: flex;
   justify-content: space-around;
+
+  p {
+    padding-left: 5%;
+  }
 `;
 
 class Home extends Component {
@@ -122,6 +134,20 @@ class Home extends Component {
   render() {
     return (
       <Container>
+        <TextContainer>
+          <img src={logo} />
+          <p>
+            Welcome to the best logic circuit simulator there is,{" "}
+            <code>Logically!</code>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged.
+            <button onClick={this.addBookHandler}>Testing json</button>
+          </p>
+        </TextContainer>
         <NavboxContainer>
           <Navbox to="/sketch">
             <div>Create a new sketch</div>
@@ -132,14 +158,6 @@ class Home extends Component {
             <img src={examples} />
           </Navbox>
         </NavboxContainer>
-        <TextContainer>
-          <img src={logo} />
-          <p>
-            Welcome to the best logic circuit simulator there is,{" "}
-            <code>Logically!</code>
-            <button onClick={this.addBookHandler}>Testing json</button>
-          </p>
-        </TextContainer>
       </Container>
     );
   }
