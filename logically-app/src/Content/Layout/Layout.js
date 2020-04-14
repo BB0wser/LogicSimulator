@@ -49,7 +49,7 @@ const NavList = styled.ul`
 const StyledLink = styled(Link)`
    color: white;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
 
     text-transform: uppercase;
