@@ -131,10 +131,6 @@ class Home extends Component {
             <div>Go to examples</div>
             <img src={examples} />
           </Navbox>
-          <Navbox to="/howto">
-            <div>How to use</div>
-            <img src={idea} />
-          </Navbox>
         </NavboxContainer>
         <TextContainer>
           <img src={logo} />

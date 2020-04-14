@@ -32,7 +32,7 @@ const BrandLogo = styled.div`
 `;
 
 const NavList = styled.ul`
-  width: 30%;
+  width: 25%;
 
   display: flex;
   flex-direction: row;
@@ -81,9 +81,6 @@ class Navbar extends Component {
           </li>
           <li>
              <StyledLink to="/examples">Examples</StyledLink> 
-          </li>
-          <li>
-             <StyledLink to="/howto">How to</StyledLink> 
           </li>
         </NavList>
       </Navigation>
