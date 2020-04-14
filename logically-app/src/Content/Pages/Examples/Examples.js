@@ -20,7 +20,7 @@ const ExamplesContainer = styled.div`
   padding-left: 10%;
   padding-right: 10%;
 
-  background-color: blue;
+  background-color: white;
 
    display: flex;
   flex-direction: column;
