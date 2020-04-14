@@ -1,0 +1,16 @@
+{
+	"gates" : ["not", "and", "not", "not", "and", "not"],
+	"inputs" : ["false","false"],
+	"connections": [
+		["input0","gate0"],
+		["gate0","gate1"],
+		["gate1","gate2"],
+		["input1","gate3"],
+		["gate3","gate4"],
+		["gate4","gate5"],
+		["gate2","gate4"],
+		["gate5","gate1"],
+		["gate2","output0"],
+		["gate5","output1"]
+	]
+}

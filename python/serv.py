@@ -5,7 +5,7 @@ import sys
 
 app = Flask(__name__)
 CORS(app)
-#print(sys.path)
+print(sys.path)
 
 @app.route("/", methods=['POST', 'GET', 'OPTIONS'])
 #@crossorigin(origin='localhost:3000',headers=['Content- Type','Authorization'])
@@ -43,7 +43,7 @@ def loadCircuit():
 	
 	#if its from the example page
 	if rquest['example']:
-		filename = "example/" + rquest['filename']
+		filename = "examples/" + rquest['filename']
 	else:
 		filename = "saves/" + rquest['filename']
 	
@@ -57,7 +57,7 @@ def loadCircuit():
 		error = {"ERROR" : "couldnt load file"}
 		return json.dumps(error)
 	
-	return json.dumps(data)
+	return json.dumps(data, indent=4)
 
 
 @app.route("/jsonex", methods=['POST'])
@@ -72,7 +72,6 @@ def jasonex():
 	gates = rquest['gates']
 	connections = rquest['connections']
 	inputs = rquest['inputs']
-	outputgate = rquest['outputgate']
 	for gate in gates:
 		print(type(gate))
 	
@@ -92,8 +91,9 @@ def jasonex():
 	#
 
 	#for now just returns this
-	output = inputs[0] and inputs[1]
-	rv = {'output' : output}
+	outputs = []
+	outputs.append(inputs[0] and inputs[1])
+	rv = {'output' : outputs}
 	return json.dumps(rv)
 
 

@@ -7,9 +7,10 @@ to server:
 
 server returns:
 {
-	"output" : true/false
+	"outputs" : [true/false]
 }
 
 NOTES:
 	-"gates", "connections", and "inputs" are arrays of however many of each there are.
 	-"gates" and "inputs" array should be in order, for example: the "input0" in "connections" refers to "inputs"[0] in the array
+	-it returns an array of outputs

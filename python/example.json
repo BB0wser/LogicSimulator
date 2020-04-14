@@ -1,8 +1,8 @@
 {
 	"gates" : ["or","and"],
-	"connections" : [["input0","gate0"],["input1","gate0"],["input2","gate1"],["gate0","gate1"],["gate1","output"]],
+	"connections" : [["input0","gate0"],["input1","gate0"],["input2","gate1"],["gate0","gate1"],["gate1","output0"]],
 	"inputs" : [true,false,false],
-	"output" : false,
+	"outputs" : [false],
 	"truth-table" : {
 		"intput0" : [true,true,true,true,false,false,false,false],
 		"input1" : [true,true,false,false,true,true,false,false],
