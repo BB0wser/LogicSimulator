@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom"; /*important libry*/
 import { Stage, Layer, Rect, Text } from "react-konva";
 import Konva from "konva";
+import Button from "../../../UI/Button/Button";
 import logo from "../../../circuit.svg";
 import and from "../../../Logos/and.svg";
 import styled from "styled-components";
@@ -12,7 +13,6 @@ const Container = styled.div`
   height: calc(100%-50px);
   bottom: 0;
   width: 100%;
-  /*-----*/
   display: flex;
   background: #282c34;
 `;
@@ -158,10 +158,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
         is merely a placeholder. Same with connect two gates button*/
       <Container>
         <Sidebar>
-          <button type="button" onClick={this._buttonCreateBox1}>
-            Create gate
-          </button>
-          <button onClick={this.showMenu}>Show menu</button>
+          <Button onClick={this.showMenu}>Create Gate</Button>
           {this.state.showMenu ? (
             <div
               className="menu"
@@ -169,26 +166,49 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
                 this.dropdownMenu = element;
               }}
             >
-              <button type="button" onClick={this._buttonCreateBox1}>
-                Create blue gate
-              </button>
-              <button type="button" onClick={this._buttonCreateBox2}>
-                Create pink gate
-              </button>
-              <button type="button" onClick={this._buttonCreateBox3}>
-                Create purple gate
-              </button>
-              <button type="button" onClick={this._buttonDrawLine}>
-                Connect two gates
-              </button>
-              <button type="button" onClick={this.props.onDelete}>
-                Delete Gate
-              </button>
+              <Button type="button" onClick={this._buttonCreateBox1}>
+                AND
+              </Button>
+              <Button type="button" onClick={this._buttonCreateBox2}>
+                OR
+              </Button>
+              <Button type="button" onClick={this._buttonCreateBox3}>
+                NOT
+              </Button>
+              <Button type="button" onClick={this._buttonDrawLine}>
+                EXCLUSIVE OR
+              </Button>
             </div>
           ) : null}
           {this.state.ObjectMap.map((item, index) => {
             return item;
           })}
+          <Button type="button" onClick={this.props.onDelete}>
+            Delete Gate
+          </Button>
+          <Button onClick={this.showMenu}>Create Connection</Button>
+          {this.state.showMenu ? (
+            <div
+              className="menu"
+              ref={element => {
+                this.dropdownMenu = element;
+              }}
+            >
+              <Button type="button" onClick={this._buttonCreateBox1}>
+                Line
+              </Button>
+              <Button type="button" onClick={this._buttonCreateBox2}>
+                Bus
+              </Button>
+              <Button type="button" onClick={this._buttonCreateBox3}>
+                Point
+              </Button>
+            </div>
+          ) : null}
+          <Button type="button">View Truth Table</Button>
+          <Button type="button">Add LED</Button>
+          <Button type="button">View Boolean Expression</Button>
+          <Button type="button">Save to PDF</Button>
         </Sidebar>
       </Container>
     );
