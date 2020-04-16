@@ -13,6 +13,45 @@ def home():
 	#response.headers.add('Access-Control-Allow-Origin', '*')
 	return 'what you looking at?'
 
+@app.route("/truth", methods=['POST'])
+def truth():
+	rquest = request.get_json()
+	lenarray = len(rquest['inputs'])	
+	
+	#code to generate inputs for truth table
+	size = 2**lenarray
+	inputs = []
+	for i in range(lenarray):
+		val = True
+		vec = []
+		for k in range(size):
+			if (k%(2**i)) == 0:
+				val = not val
+			vec.append(val)
+		inputs.append(vec)
+	
+	print("size: ", size)
+	for x in range(len(inputs)):
+		print(inputs[x])
+	
+	rv = {
+		'truth_table' : {
+		}
+	}
+	for j in range(lenarray):
+		string = "input" + str(j)
+		rv['truth_table'][string] = inputs[j]
+	
+	
+	#here we can loop
+		#here we can pass in inputs to logic.py
+		#here we can add output to outputs list
+	
+	#here we can add outputs to rv
+	
+	return json.dumps(rv, indent=4)
+	
+	
 @app.route("/save", methods=['POST'])
 def saveCircuit():
 	#frontend should let user type in filename to save as
