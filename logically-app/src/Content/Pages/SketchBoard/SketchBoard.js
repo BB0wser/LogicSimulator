@@ -2,10 +2,38 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom"; /*important libry*/
 import { Stage, Layer, Rect, Text } from "react-konva";
 import Konva from "konva";
-import Button from "../../../UI/Button/Button";
+import Example from "../../../UI/Button/Example";
 import logo from "../../../circuit.svg";
 import and from "../../../Logos/and.svg";
 import styled from "styled-components";
+
+const Button = styled.button`
+  position: relative;
+  background-color: #b6d3ff;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+
+  width: 100%;
+  height: 65px;
+
+    text-transform: uppercase;
+  border: 1px solid #888888;
+`;
+
+const SmallerButton = styled.button`
+  position: relative;
+  background-color: #1459c3;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+
+  width: 100%;
+  height: 45px;
+
+    text-transform: uppercase;
+  border: 1px solid black;
+`;
 
 const Container = styled.div`
   position: absolute;
@@ -22,9 +50,11 @@ const Sidebar = styled.div`
   top: 0;
   height: 100%;
   bottom: 0;
-  width: 100px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
 
-  background: red;
+  background: #f0f8ff;
 `;
 
 class SketchBoard extends Component {
@@ -34,15 +64,18 @@ class SketchBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: false,
+      showGates: false,
+      showConnections: false,
       ObjectMap: []
     };
     this._createObject = this._createObject.bind(this);
     this._createBox = this._createBox.bind(this);
     this._buttonCreateBox1 = this._buttonCreateBox1.bind(this);
     this._dragTask = this._dragTask.bind(this);
-    this.showMenu = this.showMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
+    this.showGates = this.showGates.bind(this);
+    this.closeGates = this.closeGates.bind(this);
+    this.showConnections = this.showConnections.bind(this);
+    this.closeConnections = this.closeConnections.bind(this);
     this.buttonDrawLine = this._buttonDrawLine.bind(this);
   }
 
@@ -50,18 +83,34 @@ class SketchBoard extends Component {
       adding gates
       connecting gates
       deleting gates*/
-  showMenu(event) {
+  showGates(event) {
     event.preventDefault();
 
-    this.setState({ showMenu: true }, () => {
-      document.addEventListener("click", this.closeMenu);
+    this.setState({ showGates: true }, () => {
+      document.addEventListener("click", this.closeGates);
     });
   }
 
-  closeMenu(event) {
+  closeGates(event) {
     if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({ showMenu: false }, () => {
-        document.removeEventListener("click", this.closeMenu);
+      this.setState({ showGates: false }, () => {
+        document.removeEventListener("click", this.closeGates);
+      });
+    }
+  }
+
+  showConnections(event) {
+    event.preventDefault();
+
+    this.setState({ showConnections: true }, () => {
+      document.addEventListener("click", this.closeConnections);
+    });
+  }
+
+  closeConnections(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showConnections: false }, () => {
+        document.removeEventListener("click", this.closeConnections);
       });
     }
   }
@@ -128,6 +177,16 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
     );
   };
 
+  _buttonCreateBox4 = () => {
+    this._createObject(
+      this._createBox({
+        backgroundColor: "blue",
+        width: "100px",
+        height: "100px"
+      })
+    );
+  };
+
   /*attempt to draw a line for gate connections. Currently does not work*/
   _buttonDrawLine = () => {
     var line = new Konva.Line({
@@ -139,16 +198,6 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
     });
   };
 
-  _buttonCreateBox4 = () => {
-    this._createObject(
-      this._createBox({
-        backgroundColor: "blue",
-        width: "100px",
-        height: "100px"
-      })
-    );
-  };
-
   render() {
     return (
       /* displays the canvas for working with the gates and the menus and buttons*/
@@ -158,51 +207,54 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
         is merely a placeholder. Same with connect two gates button*/
       <Container>
         <Sidebar>
-          <Button onClick={this.showMenu}>Create Gate</Button>
-          {this.state.showMenu ? (
+          <Button onClick={this.showGates}>Create Gate</Button>
+          {this.state.showGates ? (
             <div
               className="menu"
               ref={element => {
                 this.dropdownMenu = element;
               }}
             >
-              <Button type="button" onClick={this._buttonCreateBox1}>
+              <SmallerButton type="button" onClick={this._buttonCreateBox1}>
                 AND
-              </Button>
-              <Button type="button" onClick={this._buttonCreateBox2}>
+              </SmallerButton>
+              <SmallerButton type="button" onClick={this._buttonCreateBox2}>
                 OR
-              </Button>
-              <Button type="button" onClick={this._buttonCreateBox3}>
+              </SmallerButton>
+              <SmallerButton type="button" onClick={this._buttonCreateBox3}>
                 NOT
-              </Button>
-              <Button type="button" onClick={this._buttonDrawLine}>
+              </SmallerButton>
+              <SmallerButton type="button" onClick={this._buttonDrawLine}>
                 EXCLUSIVE OR
-              </Button>
+              </SmallerButton>
             </div>
           ) : null}
           {this.state.ObjectMap.map((item, index) => {
             return item;
+            {
+              console.log(item);
+            }
           })}
           <Button type="button" onClick={this.props.onDelete}>
             Delete Gate
           </Button>
-          <Button onClick={this.showMenu}>Create Connection</Button>
-          {this.state.showMenu ? (
+          <Button onClick={this.showConnections}>Create Connection</Button>
+          {this.state.showConnections ? (
             <div
               className="menu"
               ref={element => {
                 this.dropdownMenu = element;
               }}
             >
-              <Button type="button" onClick={this._buttonCreateBox1}>
+              <SmallerButton type="button" onClick={this._buttonCreateBox1}>
                 Line
-              </Button>
-              <Button type="button" onClick={this._buttonCreateBox2}>
+              </SmallerButton>
+              <SmallerButton type="button" onClick={this._buttonCreateBox2}>
                 Bus
-              </Button>
-              <Button type="button" onClick={this._buttonCreateBox3}>
+              </SmallerButton>
+              <SmallerButton type="button" onClick={this._buttonCreateBox3}>
                 Point
-              </Button>
+              </SmallerButton>
             </div>
           ) : null}
           <Button type="button">View Truth Table</Button>
