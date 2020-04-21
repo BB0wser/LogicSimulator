@@ -146,6 +146,10 @@ class SketchBoard extends Component {
       });
   };
 
+  generateKey = pre => {
+    return new Date().getTime();
+  };
+
   /* Where the object map is initialized and set up everytime a box is Created
 boxes will later be replaced with svg gate figures, but encountered some trouble there*/
   _createObject = object => {
@@ -163,6 +167,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
     var styleObject = Object.assign({}, object, style);
     return (
       <div
+        key={this.generateKey(object)}
         style={styleObject}
         draggable="true"
         onDragEnd={event => {
@@ -262,9 +267,6 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           ) : null}
           {this.state.ObjectMap.map((item, index) => {
             return item;
-            {
-              console.log(item);
-            }
           })}
           <Button type="button" onClick={this.props.onDelete}>
             Delete Gate
