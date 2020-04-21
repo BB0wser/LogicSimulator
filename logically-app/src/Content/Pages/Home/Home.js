@@ -5,7 +5,6 @@ import idea from "../../../Logos/idea.svg";
 import examples from "../../../Logos/examples.svg";
 import plus from "../../../Logos/plus.svg";
 import styled from "styled-components";
-import axios from "../../../axios-logically";
 
 const Navbox = styled(Link)`
   height: 33vh;
@@ -101,36 +100,8 @@ class Home extends Component {
   constructor() {
     super();
 
-    this.state = {
-      logic: {
-        gates: ["or", "and"],
-        connections: [
-          ["input0", "gate0"],
-          ["input1", "gate0"],
-          ["input2", "gate1"],
-          ["gate0", "gate1"]
-        ],
-        inputs: [true, false, false],
-        output: true,
-        truth_table: {}
-      }
-    };
+    this.state = {};
   }
-
-  displayError = () => {
-    this.setState({ error: "Your request failed. Please try again later." });
-  };
-
-  addBookHandler = book => {
-    axios
-      .post("/", this.state.logic)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        this.displayError();
-      });
-  };
 
   render() {
     return (
@@ -146,7 +117,6 @@ class Home extends Component {
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
             remaining essentially unchanged.
-            <button onClick={this.addBookHandler}>Testing json</button>
           </p>
         </TextContainer>
         <NavboxContainer>

@@ -6,6 +6,7 @@ import Example from "../../../UI/Button/Example";
 import logo from "../../../circuit.svg";
 import and from "../../../Logos/and.svg";
 import styled from "styled-components";
+import axios from "../../../axios-logically";
 
 const Button = styled.button`
   position: relative;
@@ -18,21 +19,23 @@ const Button = styled.button`
   height: 65px;
 
     text-transform: uppercase;
-  border-bottom: 1px solid #00004d;
+  filter: drop-shadow(0 0 0.75rem blue);
+  border-radius: 5px;
 `;
 
 const SmallerButton = styled.button`
   position: relative;
-  background-color: #1459c3;
+  background-color: #000033;
   color: white;
   font-size: 15px;
+  font-weight: bold;
   text-align: center;
 
   width: 100%;
   height: 45px;
 
     text-transform: uppercase;
-  border-bottom: 1px solid 00004d;
+  border: 1px solid black;
 `;
 
 const Container = styled.div`
@@ -66,7 +69,19 @@ class SketchBoard extends Component {
     this.state = {
       showGates: false,
       showConnections: false,
-      ObjectMap: []
+      ObjectMap: [],
+      logic: {
+        gates: ["or", "and"],
+        connections: [
+          ["input0", "gate0"],
+          ["input1", "gate0"],
+          ["input2", "gate1"],
+          ["gate0", "gate1"]
+        ],
+        inputs: [true, false, false],
+        output: true,
+        truth_table: {}
+      }
     };
     this._createObject = this._createObject.bind(this);
     this._createBox = this._createBox.bind(this);
@@ -114,6 +129,22 @@ class SketchBoard extends Component {
       });
     }
   }
+
+  /* For sending requests to the backend*/
+  displayError = () => {
+    this.setState({ error: "Your request failed. Please try again later." });
+  };
+
+  addBookHandler = book => {
+    axios
+      .post("/", this.state.logic)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        this.displayError();
+      });
+  };
 
   /* Where the object map is initialized and set up everytime a box is Created
 boxes will later be replaced with svg gate figures, but encountered some trouble there*/
@@ -261,6 +292,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
           <Button type="button">Save to PDF</Button>
+          <button onClick={this.addBookHandler}>Testing json</button>
         </Sidebar>
       </Container>
     );
