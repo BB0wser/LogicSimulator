@@ -93,6 +93,8 @@ const TextContainer = styled.div`
 
   p {
     padding-left: 5%;
+    font-size: 20px;
+    line-height: 1.6;
   }
 `;
 
@@ -109,14 +111,16 @@ class Home extends Component {
         <TextContainer>
           <img src={logo} />
           <p>
-            Welcome to the best logic circuit simulator there is,{" "}
+            Welcome to the <b>best logic circuit simulator</b> there is,{" "}
             <code>Logically!</code>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
+            This website is a computer circuit simulator, useful for Computer
+            Scientists, Electrical Engineers, and anyone who wishes to learn!
+            Use the multiple <b>gate types</b>, adjust your <b>inputs</b>, and
+            generate the
+            <b> truth tables</b>! If you're not sure where to begin, or want to
+            learn more about how to use the website, head over to our{" "}
+            <b>examples</b> page! Visit our <b>sketch page</b> to start creating
+            your own circuits!
           </p>
         </TextContainer>
         <NavboxContainer>
