@@ -18,7 +18,7 @@ const Button = styled.button`
   height: 65px;
 
     text-transform: uppercase;
-  border: 1px solid #888888;
+  border-bottom: 1px solid #00004d;
 `;
 
 const SmallerButton = styled.button`
@@ -32,7 +32,7 @@ const SmallerButton = styled.button`
   height: 45px;
 
     text-transform: uppercase;
-  border: 1px solid black;
+  border-bottom: 1px solid 00004d;
 `;
 
 const Container = styled.div`
