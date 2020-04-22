@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Home from "./Content/Pages/Home/Home";
 import Examples from "./Content/Pages/Examples/Examples";
 import Navbar from "./Content/Layout/Layout";
-//import SketchBoard from "./Content/Pages/SketchBoard/SketchBoard";*/
+import { SketchBoard } from "./Content/Pages/SketchBoard/SketchBoard";
 import "./App.css";
 import styled from "styled-components";
 
@@ -26,7 +26,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/examples" exact component={Examples} />
-        
+          <Route path="/sketch" exact component={SketchBoard} />
         </Switch>
       </Router>
     </div>
