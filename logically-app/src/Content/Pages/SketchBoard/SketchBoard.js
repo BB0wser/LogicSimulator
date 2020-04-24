@@ -59,6 +59,20 @@ const Sidebar = styled.div`
   background: #f0f8ff;
 `;
 
+const Input = styled.input`
+  position: relative;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+
+  width: calc(100%-0.75rem);
+  height: 65px;
+  text-align: center;
+
+    text-transform: uppercase;
+  filter: drop-shadow(0 0 0.75rem blue);
+`;
+
 class SketchBoard extends Component {
   /*SketchBoard setup and main container*/
   componentDidMount() {}
@@ -293,6 +307,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
           <Button type="button">Save to PDF</Button>
+          <Input></Input>
           <button onClick={this.addBookHandler}>Testing json</button>
         </Sidebar>
       </Container>
