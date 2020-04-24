@@ -58,8 +58,9 @@ def saveCircuit():
 	rquest = request.get_json()
 	
 	#saves it to the "saves" directory
+	#might need to change 'value' back to 'saveas'
 	saveas = "saves/" + rquest['value']
-	rquest.pop('saveas')
+	rquest.pop('value')
 	
 	#creates if new file, overwrites if exists (need to overwrite so people can update their circuits and save again)
 	try:
