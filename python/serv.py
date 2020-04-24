@@ -83,9 +83,9 @@ def loadCircuit():
 	
 	#if its from the example page
 	if rquest['file']['example']:
-		filename = "examples/" + rquest['file']['filename']
+		filename = "examples/" + rquest['filename']
 	else:
-		filename = "saves/" + rquest['file']['filename']
+		filename = "saves/" + rquest['filename']
 	
 	try:
 		with open(filename,"r") as f:
