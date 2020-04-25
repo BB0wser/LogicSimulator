@@ -82,7 +82,7 @@ def loadCircuit():
 	rquest = request.get_json()
 	
 	#if its from the example page
-	if rquest['file']['example']:
+	if rquest['example']:
 		filename = "examples/" + rquest['filename']
 	else:
 		filename = "saves/" + rquest['filename']
