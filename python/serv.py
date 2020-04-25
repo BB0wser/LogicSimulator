@@ -5,7 +5,7 @@ import sys
 
 app = Flask(__name__)
 CORS(app)
-print(sys.path)
+#print(sys.path)
 
 @app.route("/", methods=['POST', 'GET', 'OPTIONS'])
 #@crossorigin(origin='localhost:3000',headers=['Content- Type','Authorization'])
@@ -59,7 +59,7 @@ def saveCircuit():
 	
 	#saves it to the "saves" directory
 	#might need to change 'value' back to 'saveas'
-	saveas = "saves/" + rquest['value']
+	saveas = "saves/" + rquest['value'] + ".json"
 	rquest.pop('value')
 	
 	#creates if new file, overwrites if exists (need to overwrite so people can update their circuits and save again)
