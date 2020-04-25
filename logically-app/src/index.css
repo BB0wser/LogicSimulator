@@ -9,6 +9,10 @@ button {
   font-family: "Fauna One", serif;
 }
 
+input {
+  font-family: "Fauna One", serif;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

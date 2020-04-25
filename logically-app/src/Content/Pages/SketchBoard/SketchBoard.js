@@ -66,7 +66,7 @@ const Input = styled.input`
   font-size: 20px;
 
   width: calc(100%-0.75rem);
-  height: 65px;
+  height: 40px;
   text-align: center;
 
     text-transform: uppercase;
@@ -94,7 +94,12 @@ class SketchBoard extends Component {
         inputs: [true, false, false],
         output: true,
         truth_table: {}
-      }
+      },
+      file: {
+        filename: "save.json",
+        example: false
+      },
+      saveas: ""
     };
     this._createObject = this._createObject.bind(this);
     this._createBox = this._createBox.bind(this);
@@ -159,6 +164,28 @@ class SketchBoard extends Component {
       });
   };
 
+  saveFile = file => {
+    axios
+      .post("/save", this.state.saveas)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        this.displayError();
+      });
+  };
+
+  loadFile = file => {
+    axios
+      .post("/load", this.state.file)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        this.displayError();
+      });
+  };
+
   generateKey = pre => {
     return new Date().getTime();
   };
@@ -188,6 +215,18 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
         }}
       />
     );
+  };
+
+  /*handling the input section*/
+  inputChangedHandler = event => {
+    const saveas = {
+      ...this.state.saveas
+    };
+
+    saveas.value = event.target.value;
+    console.log(saveas);
+
+    this.setState({ saveas: saveas });
   };
 
   /* handles dragging the boxes*/
@@ -306,8 +345,18 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button">View Truth Table</Button>
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
-          <Button type="button">Save to PDF</Button>
-          <Input></Input>
+          <Button type="button" onClick={this.loadFile}>
+            Load file
+          </Button>
+          <Input
+            onChange={event => {
+              this.inputChangedHandler(event);
+            }}
+          ></Input>
+          <Button type="button" onClick={this.saveFile}>
+            Save to PDF
+          </Button>
+
           <button onClick={this.addBookHandler}>Testing json</button>
         </Sidebar>
       </Container>
