@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { Stage, Layer, Circle, Line, Text, Image } from "react-konva";
+import { Stage, Layer, Circle, Shape, Text, Image } from "react-konva";
 import useImage from "use-image";
 import styled from "styled-components";
 
@@ -70,6 +70,49 @@ function generateShapes() {
 
 const INITIAL_SHAPES = generateShapes();
 
+
+const RADIUS = 20;
+
+const Line = ({ points }) => {
+  return (
+    <Shape
+      points={points}
+      sceneFunc={(context, shape) => {
+        const width = points[1].x - points[0].x;
+        const height = points[1].y - points[0].y;
+        const dir = Math.sign(height);
+        const radius = Math.min(
+          RADIUS,
+          Math.abs(height / 2),
+          Math.abs(width / 2)
+        );
+
+        context.beginPath();
+        context.moveTo(points[0].x, points[0].y);
+        context.lineTo(points[0].x + width / 2 - RADIUS, points[0].y);
+        context.quadraticCurveTo(
+          points[0].x + width / 2,
+          points[0].y,
+          points[0].x + width / 2,
+          points[0].y + dir * radius
+        );
+        context.lineTo(points[0].x + width / 2, points[1].y - dir * radius);
+        context.quadraticCurveTo(
+          points[0].x + width / 2,
+          points[1].y,
+          points[0].x + width / 2 + radius,
+          points[1].y
+        );
+        context.lineTo(points[1].x, points[1].y);
+        context.fillStrokeShape(shape);
+      }}
+      stroke="black"
+      strokeWidth={2}
+    />
+  );
+};
+
+
 const URLImage = ({ image }) => {
   const [img] = useImage(image.src);
   return (
@@ -86,6 +129,11 @@ const URLImage = ({ image }) => {
 
 
 export const SketchBoard = () => {
+  const [isDrawing, setDrawing] = React.useState(false);
+     const [lines, setLines] = React.useState([
+       [{ x: 30, y: 30 }, { x: 200, y: 200 }]
+     ]);
+
 
   const dragUrl = React.useRef();
    const stageRef = React.useRef();
@@ -139,7 +187,27 @@ export const SketchBoard = () => {
     <Stage
         width={window.innerWidth}
         height={window.innerHeight}
+        onMouseDown={e => {
+             const pos = e.target.getStage().getPointerPosition();
+             const newLines = lines.concat([[pos, pos]]);
+             setLines(newLines);
+             setDrawing(true);
+           }}
+           onMouseMove={e => {
+             if (!isDrawing) {
+               return;
+             }
+             const pos = e.target.getStage().getPointerPosition();
+             const lastLine = lines[lines.length - 1].slice();
+             lastLine[1] = pos;
 
+             const newLines = lines.slice();
+             newLines[newLines.length - 1] = lastLine;
+             setLines(newLines);
+           }}
+           onMouseUp={e => {
+             setDrawing(false);
+           }}
         >
       <Layer>
         {connectors.map(con => {
@@ -156,6 +224,9 @@ export const SketchBoard = () => {
             />
           );
         })}
+        {lines.map(l => (
+       <Line points={l} />
+     ))}
         {shapes.map(shape => (
           <Circle
             x={shape.x}
