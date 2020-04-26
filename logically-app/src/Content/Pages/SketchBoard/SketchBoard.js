@@ -131,7 +131,6 @@ const URLImage = ({ image }) => {
 export const SketchBoard = () => {
   const [isDrawing, setDrawing] = React.useState(false);
      const [lines, setLines] = React.useState([
-       [{ x: 30, y: 30 }, { x: 200, y: 200 }]
      ]);
 
 
@@ -162,7 +161,7 @@ export const SketchBoard = () => {
               <SmallerButton type="button" >
                 EXCLUSIVE OR
               </SmallerButton>
-          ) : null}
+
           <Button type="button" >
             Delete Gate
           </Button>
@@ -176,7 +175,7 @@ export const SketchBoard = () => {
               <SmallerButton type="button" >
                 Point
               </SmallerButton>
-          ) : null}
+
           <Button type="button">View Truth Table</Button>
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
