@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { Stage, Layer, Circle, Shape, Text, Image } from "react-konva";
+import { Stage, Layer, Circle, Shape, Rect, Text, Image } from "react-konva";
 import useImage from "use-image";
 import styled from "styled-components";
 
@@ -47,30 +47,66 @@ const Container = styled.div`
 const Sidebar = styled.div`
   position: absolute;
   top: 0;
-  height: 100%;
+  height: 250px;
   bottom: 0;
-  width: 250px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 
   background: #f0f8ff;
 `;
-
+var andindentifier=0;
+var orindentifier=0;
+var notindentifier=0;
+var xorindentifier=0;
 function generateShapes() {
   const shapes = [];
-  for (var i = 0; i < 10; i++) {
+orindentifier=orindentifier+1;
     shapes.push({
-      id: i,
+      id: orindentifier,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight
     });
-  }
+
   return shapes;
 }
+function generateShapes2() {
+  const shapes = [];
+andindentifier=andindentifier+1;
+    shapes.push({
+      id: andindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
 
+  return shapes;
+}
+function generateShapes3() {
+  const shapes = [];
+notindentifier=notindentifier+1;
+    shapes.push({
+      id: notindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+
+  return shapes;
+}
+function generateShapes4() {
+  const shapes = [];
+xorindentifier=xorindentifier+1;
+    shapes.push({
+      id: xorindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+
+  return shapes;
+}
 const INITIAL_SHAPES = generateShapes();
-
-
+const INITIAL_SHAPES_TWO = generateShapes2();
+const INITIAL_SHAPES_THREE = generateShapes3();
+const INITIAL_SHAPES_FOUR = generateShapes4();
 const RADIUS = 20;
 
 const Line = ({ points }) => {
@@ -127,7 +163,7 @@ const URLImage = ({ image }) => {
   );
 };
 
-
+var drawTheLine = false;
 export const SketchBoard = () => {
   const [isDrawing, setDrawing] = React.useState(false);
      const [lines, setLines] = React.useState([
@@ -138,6 +174,9 @@ export const SketchBoard = () => {
    const stageRef = React.useRef();
    const [images, setImages] = React.useState([]);
 
+const [shapes4, setShapes4] = React.useState(INITIAL_SHAPES_FOUR);
+const [shapes3, setShapes3] = React.useState(INITIAL_SHAPES_THREE);
+const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
   const [shapes, setShapes] = React.useState(INITIAL_SHAPES);
   const [connectors, setConnectors] = React.useState([]);
 
@@ -149,16 +188,38 @@ export const SketchBoard = () => {
         <Sidebar>
           <Button>Create Gate</Button>
 
-              <SmallerButton type="button">
+              <SmallerButton
+                  type="button"
+                  onClick={e => {
+                       const newAnd = shapes2.concat([[10, 10]]);
+                      setShapes2(newAnd);
+                    }}
+                >
                 AND
+
               </SmallerButton>
-              <SmallerButton type="button" >
+              <SmallerButton
+                  type="button"
+                  onClick={e => {
+                   const newOr = shapes.concat([[10, 50]]);
+                  setShapes(newOr);
+                }} >
                 OR
               </SmallerButton>
-              <SmallerButton type="button">
+              <SmallerButton
+                    type="button"
+                    onClick={e => {
+                     const newNot = shapes3.concat([[10, 50]]);
+                    setShapes3(newNot);
+                  }}>
                 NOT
               </SmallerButton>
-              <SmallerButton type="button" >
+              <SmallerButton
+                    type="button"
+                    onClick={e => {
+                      const newXor = shapes4.concat([[10, 50]]);
+                      setShapes4(newXor);
+              }}>
                 EXCLUSIVE OR
               </SmallerButton>
 
@@ -166,7 +227,9 @@ export const SketchBoard = () => {
             Delete Gate
           </Button>
           <Button>Create Connection</Button>
-              <SmallerButton type="button" >
+              <SmallerButton
+                  type="button"
+                  onClick={drawTheLine = true}>
                 Line
               </SmallerButton>
               <SmallerButton type="button" >
@@ -181,18 +244,19 @@ export const SketchBoard = () => {
           <Button type="button">View Boolean Expression</Button>
           <Button type="button">Save to PDF</Button>
           <Button >Testing json</Button>
-        </Sidebar>
-      </Container>
+
     <Stage
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={e => {
+          if(drawTheLine == true){
              const pos = e.target.getStage().getPointerPosition();
              const newLines = lines.concat([[pos, pos]]);
              setLines(newLines);
              setDrawing(true);
-           }}
+           }}}
            onMouseMove={e => {
+            if(drawTheLine == true){
              if (!isDrawing) {
                return;
              }
@@ -203,12 +267,14 @@ export const SketchBoard = () => {
              const newLines = lines.slice();
              newLines[newLines.length - 1] = lastLine;
              setLines(newLines);
-           }}
+           }}}
            onMouseUp={e => {
+             drawTheLine = false;
              setDrawing(false);
            }}
         >
       <Layer>
+
         {connectors.map(con => {
           const from = shapes.find(s => s.id === con.from);
           const to = shapes.find(s => s.id === con.to);
@@ -249,9 +315,89 @@ export const SketchBoard = () => {
               }
             }}
           />
-        ))}
+        ))
+      }
+      {shapes2.map(shape2 => (
+          <Rect
+            x={shape2.x}
+            y={shape2.y}
+            key={shape2.id}
+            fill="red"
+            width={25}
+            height={25}
+            shadowBlur={10}
+            draggable
+            onClick={() => {
+              if (fromShapeId) {
+                const newConnector = {
+                  from: fromShapeId,
+                  to: shape2.id,
+                  id: connectors.length
+                };
+                setConnectors(connectors.concat([newConnector]));
+                setFromShapeId(null);
+              } else {
+                setFromShapeId(shape2.id);
+              }
+
+        }}
+        />
+      ))}
+      {shapes3.map(shape3 => (
+          <Rect
+            x={shape3.x}
+            y={shape3.y}
+            key={shape3.id}
+            fill="blue"
+            width={25}
+            height={25}
+            shadowBlur={10}
+            draggable
+            onClick={() => {
+              if (fromShapeId) {
+                const newConnector = {
+                  from: fromShapeId,
+                  to: shape3.id,
+                  id: connectors.length
+                };
+                setConnectors(connectors.concat([newConnector]));
+                setFromShapeId(null);
+              } else {
+                setFromShapeId(shape3.id);
+              }
+
+        }}
+        />
+      ))}
+      {shapes4.map(shape4 => (
+        <Circle
+          x={shape4.x}
+          y={shape4.y}
+          key={shape4.id}
+          fill={fromShapeId === shape4.id ? "orange" : "purple"}
+          radius={20}
+          shadowBlur={10}
+          draggable
+          onClick={() => {
+            if (fromShapeId) {
+              const newConnector = {
+                from: fromShapeId,
+                to: shape4.id,
+                id: connectors.length
+              };
+              setConnectors(connectors.concat([newConnector]));
+              setFromShapeId(null);
+            } else {
+              setFromShapeId(shape4.id);
+            }
+          }}
+        />
+      ))
+    }
       </Layer>
     </Stage>
-  </div>
+    </Sidebar>
+  </Container>
+</div>
   );
 };
