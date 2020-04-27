@@ -164,6 +164,12 @@ const URLImage = ({ image }) => {
 };
 
 var drawTheLine = false;
+function updateDrawTheLine(){
+  drawTheLine = !drawTheLine;
+}
+function getDrawTheLine(){
+  return drawTheLine;
+}
 export const SketchBoard = () => {
   const [isDrawing, setDrawing] = React.useState(false);
      const [lines, setLines] = React.useState([
@@ -274,21 +280,6 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
            }}
         >
       <Layer>
-
-        {connectors.map(con => {
-          const from = shapes.find(s => s.id === con.from);
-          const to = shapes.find(s => s.id === con.to);
-          {images.map(image => {
-                        return <URLImage image={image} />;
-                      })}
-          return (
-            <Line
-              key={con.id}
-              points={[from.x, from.y, to.x, to.y]}
-              stroke="black"
-            />
-          );
-        })}
         {lines.map(l => (
        <Line points={l} />
      ))}
