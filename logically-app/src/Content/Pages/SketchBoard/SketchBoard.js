@@ -219,14 +219,22 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
 
   /*handling the input section*/
   inputChangedHandler = event => {
-    const saveas = {
-      ...this.state.saveas
-    };
+    const target = event.target;
 
-    saveas.value = event.target.value;
-    console.log(saveas);
-
-    this.setState({ saveas: saveas });
+    if (target.name === "saveas") {
+      const saveas = {
+        ...this.state.saveas
+      };
+      saveas.value = event.target.value;
+      console.log(saveas.value);
+      this.setState({ saveas: saveas });
+    } else {
+      const file = {
+        ...this.state.file
+      };
+      file.filename = event.target.value;
+      this.setState({ file: file });
+    }
   };
 
   /* handles dragging the boxes*/
@@ -345,10 +353,19 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button">View Truth Table</Button>
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
+          <Input
+            name="load"
+            type="file"
+            onChange={event => {
+              this.inputChangedHandler(event);
+            }}
+          ></Input>
           <Button type="button" onClick={this.loadFile}>
             Load file
           </Button>
           <Input
+            name="saveas"
+            type="text"
             onChange={event => {
               this.inputChangedHandler(event);
             }}
@@ -356,8 +373,6 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button" onClick={this.saveFile}>
             Save to PDF
           </Button>
-
-          <button onClick={this.addBookHandler}>Testing json</button>
         </Sidebar>
       </Container>
     );
