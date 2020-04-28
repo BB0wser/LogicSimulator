@@ -282,6 +282,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
     this.setState({
       lines: newLines
     });
+    console.log(newLines);
   };
 
   generateShapes2 = () => {
@@ -424,9 +425,9 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           height="703px"
           onMouseDown={this.generateLine}
           onMouseMove={this.somethingLine}
-          onMouseUp={this.setState(e => ({
-            drawTheLine: false
-          }))}
+          onMouseUp={e => {
+            this.setState({ drawTheLine: false });
+          }}
         >
           <Layer>
             {this.state.lines.map(l => (
