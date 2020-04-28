@@ -21,7 +21,7 @@ const Button = styled.button`
   width: 100%;
   height: 65px;
 
-  text-transform: uppercase;
+    text-transform: uppercase;
   filter: drop-shadow(0 0 0.75rem blue);
   border-radius: 5px;
 `;
@@ -37,7 +37,7 @@ const SmallerButton = styled.button`
   width: 100%;
   height: 45px;
 
-  text-transform: uppercase;
+    text-transform: uppercase;
   border: 1px solid black;
 `;
 
@@ -73,7 +73,7 @@ const Input = styled.input`
   height: 40px;
   text-align: center;
 
-  text-transform: uppercase;
+    text-transform: uppercase;
   filter: drop-shadow(0 0 0.75rem blue);
 `;
 
@@ -124,6 +124,7 @@ class SketchBoard extends Component {
     this.generateShapes3 = this.generateShapes3.bind(this);
     this.generateShapes4 = this.generateShapes4.bind(this);
     this.generateLine = this.generateLine.bind(this);
+    this.somethingLine = this.somethingLine.bind(this);
     this.showGates = this.showGates.bind(this);
     this.closeGates = this.closeGates.bind(this);
     this.showConnections = this.showConnections.bind(this);
@@ -251,18 +252,21 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
 
   somethingLine = event => {
     if (this.state.drawTheLine == true) {
-      if (!isDrawing) {
-        return;
-      }
-      const pos = event.target.getStage().getPointerPosition();
-      const lastLine = lines[lines.length - 1].slice();
-      lastLine[1] = pos;
-
-      const newLines = lines.slice();
-      newLines[newLines.length - 1] = lastLine;
-      setLines(newLines);
+      return;
     }
-  }
+    const pos = event.target.getStage().getPointerPosition();
+    const lines = {
+      ...this.state.lines
+    };
+    const lastLine = lines[lines.length - 1].slice();
+    lastLine[1] = pos;
+
+    const newLines = lines.slice();
+    newLines[newLines.length - 1] = lastLine;
+    this.setState({
+      lines: newLines
+    });
+  };
 
   generateShapes2 = () => {
     const shapes = [];
@@ -337,6 +341,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
       /* displays the canvas for working with the gates and the menus and buttons*/
 
       /*Also home of the "dropdown" menu to add/delete gates and connection*/
+
       <Container>
         <Sidebar>
           <Button onClick={this.showGates}>Create Gate</Button>
@@ -402,73 +407,71 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button" onClick={this.saveFile}>
             Save to PDF
           </Button>
-          <Stage
-            width={window.innerWidth}
-            height={window.innerHeight}
-            onMouseDown={this.generateLine}
-            onMouseMove={}
-            onMouseUp={this.setState(e => ({
-              drawTheLine: false
-            }))}
-          >
-            <Layer>
-              {this.state.lines.map(l => (
-                <Line points={l} />
-              ))}
-              {this.state.gates.and.map(shape => (
-                <Circle
-                  x={shape.x}
-                  y={shape.y}
-                  key={shape.id}
-                  fill={fromShapeId === shape.id ? "red" : "green"}
-                  radius={20}
-                  shadowBlur={10}
-                  draggable
-                />
-              ))}
-              {this.state.gates.or.map(shape2 => (
-                <Rect
-                  x={shape2.x}
-                  y={shape2.y}
-                  key={shape2.id}
-                  fill="red"
-                  width={25}
-                  height={25}
-                  shadowBlur={10}
-                  draggable
-                />
-              ))}
-              {this.state.gates.not.map(shape3 => (
-                <Rect
-                  x={shape3.x}
-                  y={shape3.y}
-                  key={shape3.id}
-                  fill="blue"
-                  width={25}
-                  height={25}
-                  shadowBlur={10}
-                  draggable
-                />
-              ))}
-              {this.state.gates.xor.map(shape4 => (
-                <Circle
-                  x={shape4.x}
-                  y={shape4.y}
-                  key={shape4.id}
-                  fill={fromShapeId === shape4.id ? "orange" : "purple"}
-                  radius={20}
-                  shadowBlur={10}
-                  draggable
-                />
-              ))}
-            </Layer>
-          </Stage>
         </Sidebar>
+        <Stage
+          width={window.innerWidth}
+          height={window.innerHeight}
+          onMouseDown={this.generateLine}
+          onMouseMove={this.somethingLine}
+          onMouseUp={this.setState(e => ({
+            drawTheLine: false
+          }))}
+        >
+          <Layer>
+            {this.state.lines.map(l => (
+              <Line points={l} />
+            ))}
+            {this.state.gates.and.map(shape => (
+              <Circle
+                x={shape.x}
+                y={shape.y}
+                key={shape.id}
+                fill="green"
+                radius={20}
+                shadowBlur={10}
+                draggable
+              />
+            ))}
+            {this.state.gates.or.map(shape2 => (
+              <Rect
+                x={shape2.x}
+                y={shape2.y}
+                key={shape2.id}
+                fill="red"
+                width={25}
+                height={25}
+                shadowBlur={10}
+                draggable
+              />
+            ))}
+            {this.state.gates.not.map(shape3 => (
+              <Rect
+                x={shape3.x}
+                y={shape3.y}
+                key={shape3.id}
+                fill="blue"
+                width={25}
+                height={25}
+                shadowBlur={10}
+                draggable
+              />
+            ))}
+            {this.state.gates.xor.map(shape4 => (
+              <Circle
+                x={shape4.x}
+                y={shape4.y}
+                key={shape4.id}
+                fill="purple"
+                radius={20}
+                shadowBlur={10}
+                draggable
+              />
+            ))}
+          </Layer>
+        </Stage>
       </Container>
     );
   }
 }
-
-ReactDOM.render(<SketchBoard />, document.getElementById("root"));
 
 export default SketchBoard;
