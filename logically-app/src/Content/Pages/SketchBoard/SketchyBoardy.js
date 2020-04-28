@@ -121,6 +121,38 @@ function generateShapes4() {
     y: Math.random() * window.innerHeight
   });
 
+  function showGates(event) {
+    event.preventDefault();
+
+    this.setState({ showGates: true }, () => {
+      document.addEventListener("click", this.closeGates);
+    });
+  }
+
+  function closeGates(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showGates: false }, () => {
+        document.removeEventListener("click", this.closeGates);
+      });
+    }
+  }
+
+  function showConnections(event) {
+    event.preventDefault();
+
+    this.setState({ showConnections: true }, () => {
+      document.addEventListener("click", this.closeConnections);
+    });
+  }
+
+  function closeConnections(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showConnections: false }, () => {
+        document.removeEventListener("click", this.closeConnections);
+      });
+    }
+  }
+
   return shapes;
 }
 
