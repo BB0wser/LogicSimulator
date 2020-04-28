@@ -76,6 +76,9 @@ var orindentifier = 0;
 var notindentifier = 0;
 var xorindentifier = 0;
 
+var showGates = false;
+var showConnections = false;
+
 function generateShapes() {
   const shapes = [];
   orindentifier = orindentifier + 1;
@@ -100,6 +103,39 @@ function generateShapes2() {
   return shapes;
 }
 
+function showButtons_1() {
+  if (showGates) {
+    return (
+      <div>
+        <SmallerButton type="button" onClick={this.generateShapes}>
+          AND
+        </SmallerButton>
+        <SmallerButton type="button" onClick={this.generateShapes2}>
+          OR
+        </SmallerButton>
+        <SmallerButton type="button" onClick={this.generateShapes3}>
+          NOT
+        </SmallerButton>
+        <SmallerButton type="button" onClick={this.generateShapes4}>
+          EXCLUSIVE OR
+        </SmallerButton>
+      </div>
+    );
+  }
+}
+
+function showButtons_2() {
+  if (showConnections) {
+    return (
+      <div>
+        <SmallerButton type="button">Line</SmallerButton>
+        <SmallerButton type="button">Bus</SmallerButton>
+        <SmallerButton type="button">Point</SmallerButton>
+      </div>
+    );
+  }
+}
+
 function generateShapes3() {
   const shapes = [];
   notindentifier = notindentifier + 1;
@@ -120,40 +156,15 @@ function generateShapes4() {
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight
   });
-
-  function showGates(event) {
-    event.preventDefault();
-
-    this.setState({ showGates: true }, () => {
-      document.addEventListener("click", this.closeGates);
-    });
-  }
-
-  function closeGates(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({ showGates: false }, () => {
-        document.removeEventListener("click", this.closeGates);
-      });
-    }
-  }
-
-  function showConnections(event) {
-    event.preventDefault();
-
-    this.setState({ showConnections: true }, () => {
-      document.addEventListener("click", this.closeConnections);
-    });
-  }
-
-  function closeConnections(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({ showConnections: false }, () => {
-        document.removeEventListener("click", this.closeConnections);
-      });
-    }
-  }
-
   return shapes;
+}
+
+function toggleGates(event) {
+  showGates = !showGates;
+}
+
+function toggleConnections(event) {
+  showConnections = !showConnections;
 }
 
 const INITIAL_SHAPES = generateShapes();
@@ -225,7 +236,7 @@ function getDrawTheLine() {
   return drawTheLine;
 }
 
-const SketchBoard = () => {
+const SketchyBoardy = () => {
   const [isDrawing, setDrawing] = React.useState(false);
   const [lines, setLines] = React.useState([]);
 
@@ -245,67 +256,18 @@ const SketchBoard = () => {
     <div>
       <Container>
         <Sidebar>
-          <Button onClick={this.showGates}>Create Gate</Button>
-          {this.state.showGates ? (
-            <div
-              className="menu"
-              ref={element => {
-                this.dropdownMenu = element;
-              }}
-            >
-              <SmallerButton type="button" onClick={this.generateShapes}>
-                AND
-              </SmallerButton>
-              <SmallerButton type="button" onClick={this.generateShapes2}>
-                OR
-              </SmallerButton>
-              <SmallerButton type="button" onClick={this.generateShapes3}>
-                NOT
-              </SmallerButton>
-              <SmallerButton type="button" onClick={this.generateShapes4}>
-                EXCLUSIVE OR
-              </SmallerButton>
-            </div>
-          ) : null}
-          <Button type="button" onClick={this.props.onDelete}>
-            Delete Gate
-          </Button>
-          <Button onClick={this.showConnections}>Create Connection</Button>
-          {this.state.showConnections ? (
-            <div
-              className="menu"
-              ref={element => {
-                this.dropdownMenu = element;
-              }}
-            >
-              <SmallerButton type="button">Line</SmallerButton>
-              <SmallerButton type="button">Bus</SmallerButton>
-              <SmallerButton type="button">Point</SmallerButton>
-            </div>
-          ) : null}
+          <Button onClick={toggleGates()}>Create Gate</Button>
+
+          <Button type="button">Delete Gate</Button>
+          <Button onClick={toggleConnections()}>Create Connection</Button>
+
           <Button type="button">View Truth Table</Button>
           <Button type="button">Add LED</Button>
           <Button type="button">View Boolean Expression</Button>
-          <Input
-            name="load"
-            type="file"
-            onChange={event => {
-              this.inputChangedHandler(event);
-            }}
-          ></Input>
-          <Button type="button" onClick={this.loadFile}>
-            Load file
-          </Button>
-          <Input
-            name="saveas"
-            type="text"
-            onChange={event => {
-              this.inputChangedHandler(event);
-            }}
-          ></Input>
-          <Button type="button" onClick={this.saveFile}>
-            Save to PDF
-          </Button>
+          <Input name="load" type="file"></Input>
+          <Button type="button">Load file</Button>
+          <Input name="saveas" type="text"></Input>
+          <Button type="button">Save to PDF</Button>
         </Sidebar>
         <Stage
           width={"308px"}
@@ -446,4 +408,4 @@ const SketchBoard = () => {
   );
 };
 
-export default SketchBoard;
+export default SketchyBoardy;
