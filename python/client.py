@@ -2,7 +2,7 @@ import requests
 import json
 import sys
 
-url = "http://127.0.0.1:5000/jsonex"
+url = "http://127.0.0.1:5000/circuit"
 if len(sys.argv) != 2:
 	print("invalid #args")
 	sys.exit()

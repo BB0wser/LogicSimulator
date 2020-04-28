@@ -100,7 +100,7 @@ def loadCircuit():
 	return json.dumps(data, indent=4)
 
 
-@app.route("/jsonex", methods=['POST'])
+@app.route("/circuit", methods=['POST'])
 def jasonex():
 	#maybe move all this to "/"
 	
@@ -139,8 +139,9 @@ def jasonex():
 	inputs = rquest['inputs']
 	
 	#call function here with these to run through logic
+	
 	#return boolean output in that function
-	#output = backend(gates,connections, inputs, outputgate)
+	#output = backend(gates,connections, inputs)
 
 	#
 	#for i in range(len(gates) + len(connections) + len(inputs) + input(outputgate) ): This loop in necessary as a gate could be updated before a previous component is, changing the result of the gate.
