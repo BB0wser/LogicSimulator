@@ -70,7 +70,13 @@ orindentifier=orindentifier+1;
 
   return shapes;
 }
+/*Function to create initial shapes. Pretty sure this only works on the initial setup
+  It creates an array that will be returned at the end, and creates a new shape with the and id
+  It also updates that id +1 so that each id number will be unique The x: and y: as Math.random just
+  randomly place the object somewhere on the stage instead of putting them at set coordinates so that can be
+  changed at any time*/
 function generateShapes2() {
+
   const shapes = [];
 andindentifier=andindentifier+1;
     shapes.push({
@@ -81,6 +87,9 @@ andindentifier=andindentifier+1;
 
   return shapes;
 }
+/* same as function above, just for a different gate. These can probably be merged together, but they might
+   need to stay seperate because they are seperate shapes and will later have different url identifiers or something like that
+   not really set in stone though*/
 function generateShapes3() {
   const shapes = [];
 notindentifier=notindentifier+1;
@@ -92,6 +101,7 @@ notindentifier=notindentifier+1;
 
   return shapes;
 }
+/*same as functions above*/
 function generateShapes4() {
   const shapes = [];
 xorindentifier=xorindentifier+1;
@@ -103,16 +113,23 @@ xorindentifier=xorindentifier+1;
 
   return shapes;
 }
+/*global variables that really are only used for sketchboard initialization. I think these can
+  be removed in our formal implementation*/
 const INITIAL_SHAPES = generateShapes();
 const INITIAL_SHAPES_TWO = generateShapes2();
 const INITIAL_SHAPES_THREE = generateShapes3();
 const INITIAL_SHAPES_FOUR = generateShapes4();
 const RADIUS = 20;
 
+/* this declares what a line is and how it should be drawn when it is drawn. Points I believe are
+   just x and y coordinates */
 const Line = ({ points }) => {
   return (
     <Shape
       points={points}
+      /* This is just defining what the shape is (which is a line There is a
+          line member, but this was easier to create the shape we wanted so this
+          defines the shape and size of the line) */
       sceneFunc={(context, shape) => {
         const width = points[1].x - points[0].x;
         const height = points[1].y - points[0].y;
@@ -122,7 +139,8 @@ const Line = ({ points }) => {
           Math.abs(height / 2),
           Math.abs(width / 2)
         );
-
+        /*these are member functions of the shape class itself found within Konva. This
+          first part is creating the first "quadratic curve" in the lines we draw*/
         context.beginPath();
         context.moveTo(points[0].x, points[0].y);
         context.lineTo(points[0].x + width / 2 - RADIUS, points[0].y);
@@ -132,6 +150,7 @@ const Line = ({ points }) => {
           points[0].x + width / 2,
           points[0].y + dir * radius
         );
+        /*this is drawing the second quadratic curve found in the lines we draw*/
         context.lineTo(points[0].x + width / 2, points[1].y - dir * radius);
         context.quadraticCurveTo(
           points[0].x + width / 2,
@@ -139,6 +158,8 @@ const Line = ({ points }) => {
           points[0].x + width / 2 + radius,
           points[1].y
         );
+        /*this part is filling in the rest of the line, like the line in between the two curves
+          if that makes any sense. */
         context.lineTo(points[1].x, points[1].y);
         context.fillStrokeShape(shape);
       }}
@@ -148,7 +169,10 @@ const Line = ({ points }) => {
   );
 };
 
-
+/*this is a declaration of what the URLImage should be so that we could use it in the future
+  right now, it is not being used at all, as we were having a hard time getting an array of
+  URLImages to show up on the drawing stage. In theory though, this creates an image from a
+  URL link based on the image that was passed into the function*/
 const URLImage = ({ image }) => {
   const [img] = useImage(image.src);
   return (
@@ -162,7 +186,11 @@ const URLImage = ({ image }) => {
     />
   );
 };
-
+/*this function, the very next one, and the var are failed attempts to stop the lines from
+  drawing unless we click the line button to draw them. Basically, we wanted some way to force
+  the program to only draw lines on the stage when we told it to but we could never get it to work
+  properly. This is not really being used anywhere that benefits the progam in any way, and can either
+  be left in here or removed, it does not matter*/
 var drawTheLine = false;
 function updateDrawTheLine(){
   drawTheLine = !drawTheLine;
@@ -170,22 +198,41 @@ function updateDrawTheLine(){
 function getDrawTheLine(){
   return drawTheLine;
 }
+/*this is where the bulk of the work is done*/
 export const SketchBoard = () => {
+  /*these are React hooks that allows us to use a function like this instead of a class
+    https://reactjs.org/docs/hooks-state.html
+    that is a link to the react website that talks about them and their class equivalant if
+    more context is needed on how to switch them over. Basically though, the first part of the const
+    is an array, and the second is a method to update the array that should also force the program to
+    re render the page (from my understanding but I might be slightly off on that)
+    I think this same effect can be achieved by putting the first part into the this.state =
+    found within a class*/
   const [isDrawing, setDrawing] = React.useState(false);
      const [lines, setLines] = React.useState([
      ]);
 
 
+/*the useRef I really could not figure out what it does. I think it just keeps a reference of whats
+  on the page at a specific time but I really could not figure out how to convert that into a class or what
+  it really even does for that matter. But the dragUrl can be gotten rid of for the time being because we
+  currently aren't using the URLImage class which it is used with. stageRef I dont think is being used
+  for anything important either.*/
   const dragUrl = React.useRef();
    const stageRef = React.useRef();
-   const [images, setImages] = React.useState([]);
 
+   /*these are all just arrays to store and deal with certain componenets rendered on the screen. Images though
+   I dont think we are using because that's something that is also associated with URLImage and we can't seem
+   to get it working properly */
+   const [images, setImages] = React.useState([]);
 const [shapes4, setShapes4] = React.useState(INITIAL_SHAPES_FOUR);
 const [shapes3, setShapes3] = React.useState(INITIAL_SHAPES_THREE);
 const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
   const [shapes, setShapes] = React.useState(INITIAL_SHAPES);
+  /*this is useless. This array was used to store the line connections between two circles, but we are not
+  using that feature anymore. It is associated with something later in the code that can also be removed*/
   const [connectors, setConnectors] = React.useState([]);
-
+/*I think this was just an array of keys basically. But this array is related the the one above and can also be safely removed*/
   const [fromShapeId, setFromShapeId] = React.useState(null);
 
   return (
@@ -197,6 +244,9 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                   type="button"
                   onClick={e => {
+                      /*this is where new shapes are created and added. So what happens here is a new shape is created
+                        at location 10,10 and concat just returns the entire array plus the new shape. Now using setShapes2(newAnd)
+                        that forces a re render of the page and the new "and" gate will appear on the screen*/
                        const newAnd = shapes2.concat([[10, 10]]);
                       setShapes2(newAnd);
                     }}
@@ -207,6 +257,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                   type="button"
                   onClick={e => {
+                    /*follows the same method as "and"*/
                    const newOr = shapes.concat([[10, 50]]);
                   setShapes(newOr);
                 }} >
@@ -215,6 +266,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                     type="button"
                     onClick={e => {
+                        /*follows the same method as "and"*/
                      const newNot = shapes3.concat([[10, 50]]);
                     setShapes3(newNot);
                   }}>
@@ -223,6 +275,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                     type="button"
                     onClick={e => {
+                        /*follows the same method as "and"*/
                       const newXor = shapes4.concat([[10, 50]]);
                       setShapes4(newXor);
               }}>
@@ -235,6 +288,8 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
           <Button>Create Connection</Button>
               <SmallerButton
                   type="button"
+                  /*this is a not working attempt to get the program to only draw lines when we tell it to. But for
+                    some reason we have not figured out yet, it does not like that at all and still draws lines on its own*/
                   onClick={drawTheLine = true}>
                 Line
               </SmallerButton>
@@ -255,6 +310,8 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={e => {
+          /*this is how drawing lines begin. When the mouse button is pushed down, it creates a new line, puts it into the
+            lines array and then sets drawing to true which basically just turns a boolean variable to true for the next phase*/
           if(drawTheLine == true){
              const pos = e.target.getStage().getPointerPosition();
              const newLines = lines.concat([[pos, pos]]);
@@ -262,10 +319,17 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
              setDrawing(true);
            }}}
            onMouseMove={e => {
+             /*here, if setDrawing was turned to true with onMouseDown, then it will draw until the user stops holding the mouse
+               down. If setDrawing was false, then it does not draw anything onMouseMove*/
             if(drawTheLine == true){
              if (!isDrawing) {
                return;
              }
+             /*this is getting the pointer position of the mouse relative to the stage
+             where it will then start working on drawing the line based on mouse position
+             This may give you some trouble though with the .slice() method because when I tried to change this stuff to a class before
+             asking for your help, I found out it was in the wrong format to even work. I'm not entirely sure how it works right
+             now by calling it like that. This was one of the places that really frustrated my in my attempt to transition the code over*/
              const pos = e.target.getStage().getPointerPosition();
              const lastLine = lines[lines.length - 1].slice();
              lastLine[1] = pos;
@@ -275,14 +339,19 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
              setLines(newLines);
            }}}
            onMouseUp={e => {
+             /*this just makes the program stop drawing the line*/
              drawTheLine = false;
              setDrawing(false);
            }}
         >
       <Layer>
+      /*this is where all of the lines are actually looped through and returned for the user to see on screen*/
         {lines.map(l => (
        <Line points={l} />
      ))}
+     /*this is similar to the comment above, but it is also defining here what a circle should look like. In this case I believe
+     this is the "and" and everything found within onClick can be safely removed. This was here from previous functionality and
+    I forgot to take it out when I created a new line drawing method*/
         {shapes.map(shape => (
           <Circle
             x={shape.x}
@@ -308,6 +377,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
           />
         ))
       }
+      /*same as circle above, but it is a rectangle instead. Can safely remove everything found in onClick*/
       {shapes2.map(shape2 => (
           <Rect
             x={shape2.x}
@@ -334,6 +404,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         }}
         />
       ))}
+      /*same as above*/
       {shapes3.map(shape3 => (
           <Rect
             x={shape3.x}
@@ -360,6 +431,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         }}
         />
       ))}
+      /*same as above, but this one is a Circle again*/
       {shapes4.map(shape4 => (
         <Circle
           x={shape4.x}
