@@ -80,6 +80,22 @@ const Input = styled.input`
 class SketchBoard extends Component {
   /*SketchBoard setup and main container*/
   componentDidMount() {}
+  componentWillMount() {
+    console.log("Component WILL MOUNT!");
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    return true;
+  }
+  componentWillUpdate(nextProps, nextState) {
+    console.log("Component WILL UPDATE!");
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Component DID UPDATE!");
+  }
+  componentWillUnmount() {
+    console.log("Component WILL UNMOUNT!");
+  }
 
   constructor(props) {
     super(props);
@@ -339,9 +355,6 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
   render() {
     return (
       /* displays the canvas for working with the gates and the menus and buttons*/
-
-      /*Also home of the "dropdown" menu to add/delete gates and connection*/
-
       <Container>
         <Sidebar>
           <Button onClick={this.showGates}>Create Gate</Button>
@@ -377,9 +390,7 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
                 this.dropdownMenu = element;
               }}
             >
-              <SmallerButton type="button" onClick={this._buttonCreateBox1}>
-                Line
-              </SmallerButton>
+              <SmallerButton type="button">Line</SmallerButton>
               <SmallerButton type="button">Bus</SmallerButton>
               <SmallerButton type="button">Point</SmallerButton>
             </div>
@@ -409,13 +420,10 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           </Button>
         </Sidebar>
         <Stage
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width="308px"
+          height="703px"
           onMouseDown={this.generateLine}
           onMouseMove={this.somethingLine}
-          onMouseUp={this.setState(e => ({
-            drawTheLine: false
-          }))}
         >
           <Layer>
             {this.state.lines.map(l => (
