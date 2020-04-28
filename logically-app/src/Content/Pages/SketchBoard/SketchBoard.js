@@ -244,9 +244,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                   type="button"
                   onClick={e => {
-                      /*this is where new shapes are created and added. So what happens here is a new shape is created
-                        at location 10,10 and concat just returns the entire array plus the new shape. Now using setShapes2(newAnd)
-                        that forces a re render of the page and the new "and" gate will appear on the screen*/
+
                        const newAnd = shapes2.concat([[10, 10]]);
                       setShapes2(newAnd);
                     }}
@@ -257,7 +255,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                   type="button"
                   onClick={e => {
-                    /*follows the same method as "and"*/
+
                    const newOr = shapes.concat([[10, 50]]);
                   setShapes(newOr);
                 }} >
@@ -266,7 +264,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                     type="button"
                     onClick={e => {
-                        /*follows the same method as "and"*/
+
                      const newNot = shapes3.concat([[10, 50]]);
                     setShapes3(newNot);
                   }}>
@@ -275,7 +273,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
               <SmallerButton
                     type="button"
                     onClick={e => {
-                        /*follows the same method as "and"*/
+
                       const newXor = shapes4.concat([[10, 50]]);
                       setShapes4(newXor);
               }}>
@@ -288,8 +286,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
           <Button>Create Connection</Button>
               <SmallerButton
                   type="button"
-                  /*this is a not working attempt to get the program to only draw lines when we tell it to. But for
-                    some reason we have not figured out yet, it does not like that at all and still draws lines on its own*/
+
                   onClick={drawTheLine = true}>
                 Line
               </SmallerButton>
@@ -310,8 +307,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={e => {
-          /*this is how drawing lines begin. When the mouse button is pushed down, it creates a new line, puts it into the
-            lines array and then sets drawing to true which basically just turns a boolean variable to true for the next phase*/
+
           if(drawTheLine == true){
              const pos = e.target.getStage().getPointerPosition();
              const newLines = lines.concat([[pos, pos]]);
@@ -319,17 +315,12 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
              setDrawing(true);
            }}}
            onMouseMove={e => {
-             /*here, if setDrawing was turned to true with onMouseDown, then it will draw until the user stops holding the mouse
-               down. If setDrawing was false, then it does not draw anything onMouseMove*/
+
             if(drawTheLine == true){
              if (!isDrawing) {
                return;
              }
-             /*this is getting the pointer position of the mouse relative to the stage
-             where it will then start working on drawing the line based on mouse position
-             This may give you some trouble though with the .slice() method because when I tried to change this stuff to a class before
-             asking for your help, I found out it was in the wrong format to even work. I'm not entirely sure how it works right
-             now by calling it like that. This was one of the places that really frustrated my in my attempt to transition the code over*/
+
              const pos = e.target.getStage().getPointerPosition();
              const lastLine = lines[lines.length - 1].slice();
              lastLine[1] = pos;
@@ -339,19 +330,17 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
              setLines(newLines);
            }}}
            onMouseUp={e => {
-             /*this just makes the program stop drawing the line*/
+
              drawTheLine = false;
              setDrawing(false);
            }}
         >
       <Layer>
-      /*this is where all of the lines are actually looped through and returned for the user to see on screen*/
+
         {lines.map(l => (
        <Line points={l} />
      ))}
-     /*this is similar to the comment above, but it is also defining here what a circle should look like. In this case I believe
-     this is the "and" and everything found within onClick can be safely removed. This was here from previous functionality and
-    I forgot to take it out when I created a new line drawing method*/
+
         {shapes.map(shape => (
           <Circle
             x={shape.x}
@@ -377,7 +366,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
           />
         ))
       }
-      /*same as circle above, but it is a rectangle instead. Can safely remove everything found in onClick*/
+
       {shapes2.map(shape2 => (
           <Rect
             x={shape2.x}
@@ -404,7 +393,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         }}
         />
       ))}
-      /*same as above*/
+
       {shapes3.map(shape3 => (
           <Rect
             x={shape3.x}
@@ -431,7 +420,7 @@ const [shapes2, setShapes2] = React.useState(INITIAL_SHAPES_TWO);
         }}
         />
       ))}
-      /*same as above, but this one is a Circle again*/
+
       {shapes4.map(shape4 => (
         <Circle
           x={shape4.x}
