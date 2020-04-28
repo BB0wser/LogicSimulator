@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import Line from "./Elements/Line";
+import URLImage from "./Elements/Image";
+//import Board from "./Elements/Board";
 import ReactDOM from "react-dom"; /*important libry*/
-import { Stage, Layer, Rect, Text } from "react-konva";
+import { Stage, Layer, Circle, Shape, Rect, Text, Image } from "react-konva";
+import useImage from "use-image";
 import Konva from "konva";
 import logo from "../../../circuit.svg";
 import and from "../../../Logos/and.svg";
@@ -17,7 +21,7 @@ const Button = styled.button`
   width: 100%;
   height: 65px;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
   filter: drop-shadow(0 0 0.75rem blue);
   border-radius: 5px;
 `;
@@ -33,7 +37,7 @@ const SmallerButton = styled.button`
   width: 100%;
   height: 45px;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
   border: 1px solid black;
 `;
 
@@ -69,7 +73,7 @@ const Input = styled.input`
   height: 40px;
   text-align: center;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
   filter: drop-shadow(0 0 0.75rem blue);
 `;
 
@@ -82,7 +86,20 @@ class SketchBoard extends Component {
     this.state = {
       showGates: false,
       showConnections: false,
-      ObjectMap: [],
+      drawTheLine: false,
+      identifiers: {
+        andindentifier: 0,
+        orindentifier: 0,
+        notindentifier: 0,
+        xorindentifier: 0
+      },
+      gates: {
+        and: [],
+        or: [],
+        not: [],
+        xor: []
+      },
+      lines: [],
       logic: {
         gates: ["or", "and"],
         connections: [
@@ -101,15 +118,16 @@ class SketchBoard extends Component {
       },
       saveas: ""
     };
-    this._createObject = this._createObject.bind(this);
-    this._createBox = this._createBox.bind(this);
-    this._buttonCreateBox1 = this._buttonCreateBox1.bind(this);
-    this._dragTask = this._dragTask.bind(this);
+
+    this.generateShapes = this.generateShapes.bind(this);
+    this.generateShapes2 = this.generateShapes2.bind(this);
+    this.generateShapes3 = this.generateShapes3.bind(this);
+    this.generateShapes4 = this.generateShapes4.bind(this);
+    this.generateLine = this.generateLine.bind(this);
     this.showGates = this.showGates.bind(this);
     this.closeGates = this.closeGates.bind(this);
     this.showConnections = this.showConnections.bind(this);
     this.closeConnections = this.closeConnections.bind(this);
-    this.buttonDrawLine = this._buttonDrawLine.bind(this);
   }
 
   /* handles the expansion and collapse of the menu for:
@@ -146,6 +164,16 @@ class SketchBoard extends Component {
         document.removeEventListener("click", this.closeConnections);
       });
     }
+  }
+
+  updateDrawTheLine() {
+    this.setState(prevState => ({
+      drawTheLine: !prevState.drawTheLine
+    }));
+  }
+
+  getDrawTheLine() {
+    return this.state.drawTheLine;
   }
 
   /* For sending requests to the backend*/
@@ -192,29 +220,96 @@ class SketchBoard extends Component {
 
   /* Where the object map is initialized and set up everytime a box is Created
 boxes will later be replaced with svg gate figures, but encountered some trouble there*/
-  _createObject = object => {
-    var ObjectMap = this.state.ObjectMap;
-    ObjectMap.push(object);
-    this.setState({ ObjectMap: ObjectMap });
+
+  generateShapes = event => {
+    const shapes = [];
+    this.state.identifiers.andindentifier =
+      this.state.identifiers.andindentifier + 1;
+
+    shapes.push({
+      id: this.state.identifiers.andindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+    const newAnd = shapes.concat([[10, 10]]);
+    this.setState(prevState => ({
+      and: newAnd
+    }));
+    console.log(newAnd);
   };
 
-  _createBox = style => {
-    var object = {
-      position: "absolute",
-      top: this.state.positionX,
-      left: this.state.positionY
-    };
-    var styleObject = Object.assign({}, object, style);
-    return (
-      <div
-        key={this.generateKey(object)}
-        style={styleObject}
-        draggable="true"
-        onDragEnd={event => {
-          this._dragTask(event);
-        }}
-      />
-    );
+  generateLine = event => {
+    if (this.state.drawTheLine == true) {
+      const pos = event.target.getStage().getPointerPosition();
+      const newLines = this.state.lines.concat([[pos, pos]]);
+      this.setState(prevState => ({
+        lines: newLines,
+        drawTheLine: true
+      }));
+    }
+  };
+
+  somethingLine = event => {
+    if (this.state.drawTheLine == true) {
+      if (!isDrawing) {
+        return;
+      }
+      const pos = event.target.getStage().getPointerPosition();
+      const lastLine = lines[lines.length - 1].slice();
+      lastLine[1] = pos;
+
+      const newLines = lines.slice();
+      newLines[newLines.length - 1] = lastLine;
+      setLines(newLines);
+    }
+  }
+
+  generateShapes2 = () => {
+    const shapes = [];
+    this.state.identifiers.orindentifier =
+      this.state.identifiers.orindentifier + 1;
+    shapes.push({
+      id: this.state.orindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+    const newOr = shapes.concat([[10, 10]]);
+    this.setState(prevState => ({
+      or: newOr
+    }));
+    console.log(newOr);
+  };
+
+  generateShapes3 = () => {
+    const shapes = [];
+    this.state.identifiers.notindentifier =
+      this.state.identifiers.notindentifier + 1;
+    shapes.push({
+      id: this.state.identifiers.notindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+    const newNot = shapes.concat([[10, 10]]);
+    this.setState(prevState => ({
+      or: newNot
+    }));
+    console.log(newNot);
+  };
+
+  generateShapes4 = () => {
+    const shapes = [];
+    this.state.identifiers.xorindentifier =
+      this.state.identifiers.xorindentifier + 1;
+    shapes.push({
+      id: this.state.identifiers.xorindentifier,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    });
+    const newXor = shapes.concat([[10, 10]]);
+    this.setState(prevState => ({
+      xor: newXor
+    }));
+    console.log(newXor);
   };
 
   /*handling the input section*/
@@ -237,70 +332,11 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
     }
   };
 
-  /* handles dragging the boxes*/
-  _dragTask(event) {
-    event.target.style.top = event.clientY + "px";
-    event.target.style.left = event.clientX + "px";
-  }
-  /*creates the different color boxes that will later become the logic gates*/
-  _buttonCreateBox1 = () => {
-    this._createObject(
-      this._createBox({
-        backgroundColor: "blue",
-        width: "100px",
-        height: "100px"
-      })
-    );
-  };
-
-  _buttonCreateBox2 = () => {
-    this._createObject(
-      this._createBox({
-        backgroundColor: "pink",
-        width: "100px",
-        height: "100px"
-      })
-    );
-  };
-
-  _buttonCreateBox3 = () => {
-    this._createObject(
-      this._createBox({
-        backgroundColor: "purple",
-        width: "100px",
-        height: "100px"
-      })
-    );
-  };
-
-  _buttonCreateBox4 = () => {
-    this._createObject(
-      this._createBox({
-        backgroundColor: "blue",
-        width: "100px",
-        height: "100px"
-      })
-    );
-  };
-
-  /*attempt to draw a line for gate connections. Currently does not work*/
-  _buttonDrawLine = () => {
-    var line = new Konva.Line({
-      x: 100,
-      y: 50,
-      points: [73, 70, 340, 23, 450, 60, 500, 20],
-      stroke: "red",
-      tension: 1
-    });
-  };
-
   render() {
     return (
       /* displays the canvas for working with the gates and the menus and buttons*/
 
-      /*Also home of the "dropdown" menu to add/delete gates and connections
-        Note: delete does not currently work. The button at the moment
-        is merely a placeholder. Same with connect two gates button*/
+      /*Also home of the "dropdown" menu to add/delete gates and connection*/
       <Container>
         <Sidebar>
           <Button onClick={this.showGates}>Create Gate</Button>
@@ -311,23 +347,20 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
                 this.dropdownMenu = element;
               }}
             >
-              <SmallerButton type="button" onClick={this._buttonCreateBox1}>
+              <SmallerButton type="button" onClick={this.generateShapes}>
                 AND
               </SmallerButton>
-              <SmallerButton type="button" onClick={this._buttonCreateBox2}>
+              <SmallerButton type="button" onClick={this.generateShapes2}>
                 OR
               </SmallerButton>
-              <SmallerButton type="button" onClick={this._buttonCreateBox3}>
+              <SmallerButton type="button" onClick={this.generateShapes3}>
                 NOT
               </SmallerButton>
-              <SmallerButton type="button" onClick={this._buttonDrawLine}>
+              <SmallerButton type="button" onClick={this.generateShapes4}>
                 EXCLUSIVE OR
               </SmallerButton>
             </div>
           ) : null}
-          {this.state.ObjectMap.map((item, index) => {
-            return item;
-          })}
           <Button type="button" onClick={this.props.onDelete}>
             Delete Gate
           </Button>
@@ -342,12 +375,8 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
               <SmallerButton type="button" onClick={this._buttonCreateBox1}>
                 Line
               </SmallerButton>
-              <SmallerButton type="button" onClick={this._buttonCreateBox2}>
-                Bus
-              </SmallerButton>
-              <SmallerButton type="button" onClick={this._buttonCreateBox3}>
-                Point
-              </SmallerButton>
+              <SmallerButton type="button">Bus</SmallerButton>
+              <SmallerButton type="button">Point</SmallerButton>
             </div>
           ) : null}
           <Button type="button">View Truth Table</Button>
@@ -373,6 +402,67 @@ boxes will later be replaced with svg gate figures, but encountered some trouble
           <Button type="button" onClick={this.saveFile}>
             Save to PDF
           </Button>
+          <Stage
+            width={window.innerWidth}
+            height={window.innerHeight}
+            onMouseDown={this.generateLine}
+            onMouseMove={}
+            onMouseUp={this.setState(e => ({
+              drawTheLine: false
+            }))}
+          >
+            <Layer>
+              {this.state.lines.map(l => (
+                <Line points={l} />
+              ))}
+              {this.state.gates.and.map(shape => (
+                <Circle
+                  x={shape.x}
+                  y={shape.y}
+                  key={shape.id}
+                  fill={fromShapeId === shape.id ? "red" : "green"}
+                  radius={20}
+                  shadowBlur={10}
+                  draggable
+                />
+              ))}
+              {this.state.gates.or.map(shape2 => (
+                <Rect
+                  x={shape2.x}
+                  y={shape2.y}
+                  key={shape2.id}
+                  fill="red"
+                  width={25}
+                  height={25}
+                  shadowBlur={10}
+                  draggable
+                />
+              ))}
+              {this.state.gates.not.map(shape3 => (
+                <Rect
+                  x={shape3.x}
+                  y={shape3.y}
+                  key={shape3.id}
+                  fill="blue"
+                  width={25}
+                  height={25}
+                  shadowBlur={10}
+                  draggable
+                />
+              ))}
+              {this.state.gates.xor.map(shape4 => (
+                <Circle
+                  x={shape4.x}
+                  y={shape4.y}
+                  key={shape4.id}
+                  fill={fromShapeId === shape4.id ? "orange" : "purple"}
+                  radius={20}
+                  shadowBlur={10}
+                  draggable
+                />
+              ))}
+            </Layer>
+          </Stage>
         </Sidebar>
       </Container>
     );
