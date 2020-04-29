@@ -75,6 +75,7 @@ class Not():
 
 class Not2():
 	def __init__(self, input_one, gate_ident, value = True):
+		self.inputOne = input_one
 		self.output = not value
 		self.connection_number = gate_ident
 	def update(self, newValue):

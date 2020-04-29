@@ -19,7 +19,6 @@ def createCircuit(inputGates, connections, inputs, outputs):
 
 	for inputCon in connections:
 		currentConnections.append(gates.Connection2(inputCon[0], inputCon[1]))	
-	print(currentConnections)
 
 	for gate in inputGates:
 		if gate[0].lower() == "and":
@@ -50,9 +49,9 @@ def createCircuit(inputGates, connections, inputs, outputs):
 		elif gate[0].lower() == "not":
 			input1 = ""
 			for conn in currentConnections:
-				if conn[1] == gate[1]:
+				if conn.connection_number == gate[1]:
 					input1 = conn
-			currentGates.append(gates.Not2(input1, gate[0]))
+			currentGates.append(gates.Not2(input1, gate[1]))
 
 	for i in range(len(inputGates) + len(connections) + len(inputs) ):
 		for connection in currentConnections:
@@ -112,9 +111,9 @@ def createCircuit(inputGates, connections, inputs, outputs):
 					connection.update(conn.value)
 					found = True
 					break
+	print("currentGates: " + str(currentGates))
 	print(outputs)
 	for out in outputs:
-		print(out)
 		print("!!" + str(out) + "!!")
 		for gate in currentGates:
 			print(gate.connection_number)
