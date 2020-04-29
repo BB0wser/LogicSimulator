@@ -21,8 +21,9 @@ class Connection():
 
 
 class Connection2():
-	def __init__(self, connection_number, connectedTo):
+	def __init__(self, connection_number, connectedFrom, connectedTo):
 		self.connection_number = connection_number
+		self.connectedFrom = connectedFrom
 		self.connectedTo = connectedTo
 		self.value = True
 	def update(self, newValue):
@@ -65,8 +66,8 @@ class Or2():
 		self.output = value
 		self.connection_number = gate_ident
 
-	def update(self, newValue):
-		self.output = newValue
+	def update(self, inputOne, inputTwo):
+		self.output = (inputOne.value or inputTwo.value)
 
 class Not():
 	def __init__(self, input_one, gate_ident):
