@@ -29,18 +29,18 @@ def createCircuit(inputGates, connections, inputs, outputs):
 		if gate[0].lower() == "and":
 			input1 = gates.Connection2("0","0","0")
 			input2 = gates.Connection2("0","0","0")
-			print(gate[1])
+#			print(gate[1])
 			for conn in currentConnections:
-				print(conn.connectedTo)
+#				print(conn.connectedTo)
 				if conn.connectedTo == gate[1]:
-					print(type(conn))
-					print("statment is true")
+#					print(type(conn))
+#					print("statment is true")
 					if input1.connection_number == "0":
 						input1 = conn
 					else:
 						input2 = conn
 			currentGates.append(gates.And2(input1, input2, gate[1]))
-			print("added and")
+#			print("added and")
 
 		elif gate[0].lower() == "or":
 			input1 = ""
@@ -52,7 +52,7 @@ def createCircuit(inputGates, connections, inputs, outputs):
 					else:
 						input2 == conn
 			currentGates.append(gates.Or2(input1, input2, gate[1]))
-			print("added or")
+#			print("added or")
 
 		elif gate[0].lower() == "not":
 			input1 = ""
@@ -60,7 +60,7 @@ def createCircuit(inputGates, connections, inputs, outputs):
 				if conn.connectedTo == gate[1]:
 					input1 = conn
 			currentGates.append(gates.Not2(input1, gate[1]))
-			print("added not")
+#			print("added not")
 
 	for i in range(len(inputGates) + len(connections) + len(inputs) ):
 		for connection in currentConnections:
@@ -109,7 +109,7 @@ def createCircuit(inputGates, connections, inputs, outputs):
 						if (gate.inputOne == inp.connection_number) and (gate.inputTwo == inp2.connection_number):
 							gate.update(inp.value, inp2.value)
 							found = True
-							print("Updating w/ input " + str(gate.connection_number))
+#							print("Updating w/ input " + str(gate.connection_number))
 							break
 				if found == True:
 					break
@@ -141,11 +141,11 @@ def createCircuit(inputGates, connections, inputs, outputs):
 #							pass
 #						print("###########")
 						if isinstance(gate, gates.Not2) and (gate.connection_number == conn.connectedTo):
-							print("Updating with isinstance " + str(gate.connection_number))
+#							print("Updating with isinstance " + str(gate.connection_number))
 							gate.update(conn.value)
 #							print("hit")
 						elif (gate.connection_number == conn.connectedTo) and (gate.connection_number == conn2.connectedTo):
-							print("Updating w/ connection " + str(gate.connection_number))
+#							print("Updating w/ connection " + str(gate.connection_number))
 							gate.update(conn, conn2)
 								
 
@@ -153,7 +153,7 @@ def createCircuit(inputGates, connections, inputs, outputs):
 			for inp in currentInputs:
 				if (gate.inputOne == inp.connection_number):
 					gate.update(inp.value())
-					print("Update w/ input single " + str(gate.connection_number))
+#					print("Update w/ input single " + str(gate.connection_number))
 					found = True
 
 			if found == True:
@@ -163,48 +163,47 @@ def createCircuit(inputGates, connections, inputs, outputs):
 			for conn in currentConnections:
 				if (gate.inputOne == conn.connection_number):
 					gate.update(conn.value)
-					print("Update w/ connection single " + str(gate.connection_number))
+#					print("Update w/ connection single " + str(gate.connection_number))
 					found = True
 		
 
 
-	print("currentGates: " + str(currentGates))
-	print(outputs)
+#	print("currentGates: " + str(currentGates))
+#	print(outputs)
 	for out in outputs:
-		print("!!" + str(out) + "!!")
+#		print("!!" + str(out) + "!!")
 		for gate in currentGates:
-			print(gate.connection_number)
+#			print(gate.connection_number)
 			if gate.connection_number == out:
 				currentOutputs.append(gate.output)
-				print("appended")
+#				print("appended")
 		for inp in currentInputs:
-			print(inp.connection_number)
+#			print(inp.connection_number)
 			if inp.connection_number == out:
 				currentOutputs.append(inp.value)
-				print("appended")
+#				print("appended")
 		for conn in currentConnections:
-			print(conn.connection_number)
+#			print(conn.connection_number)
 			if conn.connection_number == out:
 				currentOutputs.append(inp.value)
-				print("appended")
+#				print("appended")
 
-	currentOutputs = str(currentOutputs)
+#	currentOutputs = str(currentOutputs)
 
-	for i in range(len(currentConnections)):
-		print("conn" + str(i) + ": ", end="")
-		print(currentConnections[i].value)
+#	for i in range(len(currentConnections)):
+#		print("conn" + str(i) + ": ", end="")
+#		print(currentConnections[i].value)
 
-	for i in range(len(currentGates)):
-		print("gate" + str(i) + ": ", end="")
-		print(currentGates[i].output)
+#	for i in range(len(currentGates)):
+#		print("gate" + str(i) + ": ", end="")
+#		print(currentGates[i].output)
 
 	return currentOutputs
 
+
+
 @app.route("/", methods=['POST', 'GET', 'OPTIONS'])
 #@crossorigin(origin='localhost:3000',headers=['Content- Type','Authorization'])
-
-@app.route("/", methods=['POST', 'GET'])
-
 def home():
 	#response.headers.add('Access-Control-Allow-Origin', '*')
 	return 'what you looking at?'
@@ -212,7 +211,12 @@ def home():
 @app.route("/truth", methods=['POST'])
 def truth():
 	rquest = request.get_json()
-	lenarray = len(rquest['inputs'])	
+	if 'numinputs' in rquest:
+		print("numinputs found")
+		lenarray = rquest['numinputs']
+	else:
+		print("numinputs NOT found")
+		lenarray = len(rquest['inputs'])
 	
 	#code to generate inputs for truth table
 	size = 2**lenarray
@@ -226,25 +230,31 @@ def truth():
 			vec.append(val)
 		inputs.append(vec)
 	
-	print("size: ", size)
+#	print("size: ", size)
 	for x in range(len(inputs)):
-		print(inputs[x])
+		print("input"+str(x),inputs[x])
 	
 	rv = {
 		'truth_table' : {
 		}
 	}
-	for j in range(lenarray):
-		string = "input" + str(j)
-		rv['truth_table'][string] = inputs[j]
 	
+#	for j in range(lenarray):
+#		string = "input" + str(j)
+#		rv['truth_table'][string] = inputs[j]
+	rv['truth_table']['inputs'] = inputs
 	
-	#here we can loop
-		#here we can pass in inputs to logic.py
-		#here we can add output to outputs list
+	outputs = []
+	for i in range(size):
+		temp = []
+		for j in range(lenarray):
+			temp.append([inputs[j][i],"input"+str(j)])
+		
+		out = createCircuit(rquest["gates"], rquest["connections"], temp, rquest["output"]) 
+		outputs.append(out[0])
 	
-	#here we can add outputs to rv
-	
+	print("output",outputs)
+	rv['truth_table']['outputs'] = outputs
 	return json.dumps(rv, indent=4)
 	
 	
@@ -297,85 +307,20 @@ def loadCircuit():
 
 
 @app.route("/circuit", methods=['POST'])
-def jasonex():
-	#maybe move all this to "/"
-	
+def circuit():
 	#make different path for generating truth table?
 	#or generate truth table everytime so its ready on frontend?
 	
 	rquest = request.get_json()
 	
-#	gates = rquest['gates']
-	andgates = None
-	orgates = None
-	notgates = None
-	xorgates = None
-	norgates = None
-	nandgates = None
-	
-	if 'and' in rquest:
-		andgates = rquest['and']
-	
-	if 'or' in rquest:
-		orgates = rquest['or']
-	
-	if 'nor' in rquest:
-		norgates = rquest['nor']
-	
-	if 'not' in rquest:
-		notgates = rquest['not']
-	
-	if 'xor' in rquest:
-		xorgates = rquest['xor']
-	
-	if 'nand' in rquest:
-		nandgates = rquest['nand']
-	
-	connections = rquest['connections']
-	inputs = rquest['inputs']
-	
-	#call function here with these to run through logic
-	
-	#return boolean output in that function
-	#output = backend(gates,connections, inputs)
-
-	#
-	#for i in range(len(gates) + len(connections) + len(inputs) + input(outputgate) ): This loop in necessary as a gate could be updated before a previous component is, changing the result of the gate.
-	#										This may have to be modified in the future to allow for gates saving information.
-	#	for gate in gates:
-	#		gate.update()
-	#	for connection in connections:
-	#		connection.update()
-	#	for output in outputgate:
-	#		output.update()
-	#
-
-	#for now just returns this
-#	outputs = []
-#	outputs.append(inputs[0] and inputs[1])
-#	rv = {'output' : outputs}
-#	return json.dumps(rv)
-
-#	lang = rquest['language']
-#	pversion = rquest['version_info']['python']
-#	frame = rquest['framework']
-#	fversion = rquest['version_info']['flask']
-#	type3 = rquest['types'][2]
-#	boolean = rquest['boolean_test']
-
-#	print(type(rquest))
-#	print(rquest)
-#	rquest = json.loads(rquest)
 	print(rquest)
-	print(type(rquest))
 	outputs = createCircuit(rquest["gates"], rquest["connections"], rquest["inputs"], rquest["output"]) 
 	print(outputs)
-	return outputs 
-#	return '''The language is {} version {}
-#The framework is {} version {}
-#The third type is {}
-#The boolean was {}'''.format(lang, pversion, frame, fversion, type3, outputs)
+	jason = {"outputs":outputs}
+	print(jason)
+	return json.dumps(jason,indent=4)
 
+	
 
 if __name__ == "__main__":
 	app.run(debug=True, port=5000)
