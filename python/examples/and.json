@@ -1,10 +1,28 @@
 {
-	"and" : ["gate0"],
-	"inputs" : [false,false],
-	"connections" : [["input0","gate0"],["input1","gates0"],["gates0","output0"]],
-	"truth-table" : {
-		"input0" : [false,true,false,true],
-		"input1" : [false,false,true,true],
-		"outputs" : [false,false,false,true]
-	}
+    "gates" : [["and","gate0"]],
+    "inputs" : [[false,"input0"],[false,"input1"]],
+    "connections" : [["connect0","input0","gate0"],["connect1","input1","gate0"]],
+    "output" : ["gate0"],
+	"truth_table": {
+        "outputs": [
+            false,
+            false,
+            false,
+            true
+        ],
+        "inputs": [
+            [
+                false,
+                true,
+                false,
+                true
+            ],
+            [
+                false,
+                false,
+                true,
+                true
+            ]
+        ]
+    }
 }

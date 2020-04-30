@@ -1,0 +1,52 @@
+{
+    "gates" : [["or","gate0"],["and","gate1"]],
+    "inputs" : [[true,"input0"],[false,"input1"],[true,"input2"]],
+    "numinputs" : 3,
+    "connections" : [["connection0","input0","gate0"],["connection1","input1","gate0"],["connection2","input2","gate1"],["connection3","gate0","gate1"]],
+    "output" : ["gate1"],
+    "value" : "saveit",
+	"truth_table": {
+        "outputs": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true
+        ],
+        "inputs": [
+            [
+                false,
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ],
+            [
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true
+            ],
+            [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
+        ]
+    }
+}
