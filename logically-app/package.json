@@ -11,7 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "eslint-plugin-flowtype": "^3.13.0",
-    "jquery": "^1.9.1",
+    "jquery": "^3.5.0",
     "konva": "^4.2.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0-beta.17",
