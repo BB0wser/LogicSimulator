@@ -15,8 +15,10 @@ Breif instructions for server/client
 
 
 -to run "client.py"
-	python3 client.py <file.json> 
+	python3 client.py <file.json> <path>
 
+-client sends json file to "localhost:5000/" + <path> given above
+-the path is just the extension, not the whole thing. for example:	"python3 client.py example.json circuit" sends example.json to the /circuit path in the server
 -the client sends the json file to the server and prints out the response
--<file.json> must be in the appropriate format, look at/use any of the "example*.json" files, or go to "../logically-app/jsonguides/circuit.txt" for more info
--client sends json file to "localhost:5000/circuit"
+-<file.json> must be in the appropriate format, look at/use any of the "example*.json" files, or go to jsonguides/ to see how to make them
+-cannot send to "/" path using client.py

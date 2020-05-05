@@ -2,38 +2,28 @@ import requests
 import json
 import sys
 
-url = "http://127.0.0.1:5000/circuit"
-if len(sys.argv) != 2:
+url = "http://127.0.0.1:5000/"
+if len(sys.argv) != 3:
 	print("invalid #args")
 	sys.exit()
 
-#url = "http://127.0.0.1:5000/jsonex"
 
 fil = sys.argv[1]
+path = sys.argv[2]
+if path != 'circuit' and path != 'save' and path != 'load' and path != 'truth':
+	print("not a valid path")
+	sys.exit()
 
-f = open(fil,"r")
-#dic = {
-#	'language' : lang,
-#	'framework' : frame,
-#	'website' : 'Scotch',
-#	'version_info' : {
-#		'python' : lvers,
-#		'flask' : fvers
-#	},
-#	'types' : ['yes', 'no', 'maybe'],
-#	'boolean_test' : boolean
-#}
+url += path
 
-data = json.load(f)
+try:
+	f = open(fil,"r")
+	data = json.load(f)
+	f.close()
+except:
+	print("file does not exist")
+	sys.exit()
 
-
-#data = json.dumps(dic)
-
-with open(sys.argv[1], 'r') as json_file:
-	text = json_file.read()
-
-data = json.loads(text)
-#r = requests.post(url, json = dic)
 r = requests.post(url, json = data)
 if r.status_code != 200:
 	print("ERROR", r.status_code)
