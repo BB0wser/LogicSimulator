@@ -1,0 +1,15 @@
+to server:
+{
+	"gates" : [["or","gate0"],["and","gate1"]],
+    "inputs" : [[true,"input0"],[false,"input1"],[false,"input2"]],
+    "connections" : [["connection0","input0","gate0"],["connection1","input1","gate0"],["connection2","input2","gate1"],["connection3","gate0","gate1"]],
+	"output" : ["gate1"]
+}
+
+server returns:
+{
+	"outputs" : [true/false]
+}
+
+NOTES:
+	-it returns an array of outputs

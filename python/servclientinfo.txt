@@ -11,6 +11,7 @@ Breif instructions for server/client
 	"truth" - (POST only) receives json object in the same format as "circuit" path, returns a "truth_table" json object with an array of the inputs, and an array of outputs
 	
 -you can test the server by sending post request via Postman or with "client.py"
+-post requests must be sent in format shown in the format in jsonguides/ directory, also there are example json files in this dierectory for reference
 
 
 -to run "client.py"

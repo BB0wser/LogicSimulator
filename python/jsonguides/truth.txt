@@ -1,0 +1,63 @@
+send to server:
+{
+    "gates" : [["or","gate0"],["and","gate1"]],
+    "connections" : [["connection0","input0","gate0"],["connection1","input1","gate0"],["connection2","input2","gate1"],["connection3","gate0","gate1"]],
+    "output" : ["gate1"]
+	
+    "inputs" : [[true,"input0"],[false,"input1"],[true,"input2"]],
+		OR
+    "numinputs" : 3,
+}
+
+server returns:
+{
+    "truth_table": {
+        "inputs": [
+            [
+                false,
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ],
+            [
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true
+            ],
+            [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "outputs": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true
+        ]
+    }
+}
+
+NOTES:
+	-you can send "inputs" as it is sent in normal circuit, or you can send it as "numinputs" with the integer number of inputs that exist for that circuit
+	-in the 'truth_table' response, 'inputs' is an array of all the inputs, inputs[0] will always be 0,1,0,1,0,1...,inputs[1] = 0,0,1,1,0,0,1,1... and so on
+
