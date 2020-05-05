@@ -41,7 +41,7 @@ const Container = styled.div`
   bottom: 0;
   width: 100%;
   display: flex;
-  background: #282c34;
+  background: "white";
 `;
 
 const Sidebar = styled.div`
